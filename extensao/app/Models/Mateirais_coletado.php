@@ -15,4 +15,9 @@ class Mateirais_coletado extends Model
     {
         return $this->hasMany(Estoque::class);
     }
+
+    public function item_doado()
+    {
+        return $this->hasMany(Item_doado::class);
+    }
 }
