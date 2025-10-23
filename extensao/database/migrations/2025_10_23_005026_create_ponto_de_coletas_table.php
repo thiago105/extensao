@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_doados', function (Blueprint $table) {
+        Schema::create('ponto_de_coletas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_materiais_coletado');
-            $table->date('data_doacao');
+            $table->unsignedBigInteger('id_instituicao');
+            $table->string('endereco', 200);
+            $table->timestamp('data_inicio');
+            $table->timestamp('data_fim');
             $table->timestamps();
 
-            $table->foreign('id_materiais_coletado')
+            $table->foreign('id_instituicao')
             ->references('id')
-            ->on('mateirais_coletados')
+            ->on('instituicao')
             ->onDelete('cascade');
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('item_doados');
+        Schema::dropIfExists('ponto_de_coletas');
     }
 };

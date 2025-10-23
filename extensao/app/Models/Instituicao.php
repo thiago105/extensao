@@ -15,4 +15,9 @@ class Instituicao extends Model
     {
         return $this->hasMany(Estoque::class);
     }
+
+    public function ponto_de_coleta()
+    {
+        return $this->hasMany(Ponto_de_coleta::class);
+    }
 }
