@@ -10,4 +10,9 @@ class Mateirais_coletado extends Model
     {
         return $this->belongsTo(Usuario::class);
     }
+
+    public function estoque()
+    {
+        return $this->hasMany(Estoque::class);
+    }
 }

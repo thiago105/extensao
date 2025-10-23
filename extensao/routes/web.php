@@ -3,6 +3,7 @@
 use App\Models\Usuario;
 use App\Models\Instituicao;
 use App\Models\Mateirais_coletado;
+use App\Models\Estoque;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,4 +21,8 @@ Route::get('/instituicaos', function () {
 
 Route::get('/materiaisColetados', function () {
     return Mateirais_coletado::get();
+});
+
+Route::get('/estoque', function () {
+    return Estoque::get();
 });
