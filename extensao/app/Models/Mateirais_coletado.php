@@ -20,4 +20,9 @@ class Mateirais_coletado extends Model
     {
         return $this->hasMany(Item_doado::class);
     }
+
+    public function materiais()
+    {
+        return $this->hasMany(Materiais::class);
+    }
 }

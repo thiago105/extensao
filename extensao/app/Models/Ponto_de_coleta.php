@@ -10,4 +10,9 @@ class Ponto_de_coleta extends Model
     {
         return $this->hasMany(Instituicao::class);
     }
+
+    public function materiais()
+    {
+        return $this->hasMany(Materiais::class);
+    }
 }
