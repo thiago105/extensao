@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mateirais_coletado extends Model
+class Materiais_coletado extends Model
 {
     public function usuario()
     {

@@ -1,42 +1,31 @@
 <?php
 
-use App\Models\Usuario;
-use App\Models\Instituicao;
-use App\Models\Mateirais_coletado;
-use App\Models\Estoque;
-use App\Models\Item_doado;
-use App\Models\Ponto_de_coleta;
-use App\Models\Materiais;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\InstituicaoController;
+use App\Http\Controllers\Mateirais_coletadoController;
+use App\Http\Controllers\EstoqueController;
+use App\Http\Controllers\Item_doadoController;
+use App\Http\Controllers\Ponto_de_coletaController;
+use App\Http\Controllers\MateriaisController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/usuarios', function () {
-    return Usuario::get();
-});
+Route::resource('usuarios', UsuarioController::class);
 
-Route::get('/instituicaos', function () {
-    return Instituicao::get();
-});
+Route::resource('instituicao', InstituicaoController::class);
 
-Route::get('/materiaisColetados', function () {
-    return Mateirais_coletado::get();
-});
 
-Route::get('/estoque', function () {
-    return Estoque::get();
-});
+Route::resource('materiaisColetados', Mateirais_coletadoController::class);
 
-Route::get('/itemDoado', function () {
-    return Item_doado::get();
-});
+Route::resource('estoque', EstoqueController::class);
 
-Route::get('/pontoColeta', function () {
-    return Ponto_de_coleta::get();
-});
+Route::resource('itemDoado', Item_doadoController::class);
 
-Route::get('/materiais', function () {
-    return Materiais::get();
-});
+
+Route::resource('pontoColeta', Ponto_de_coletaController::class);
+
+
+Route::resource('materiais', MateriaisController::class);
