@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_instituicao');
             $table->string('endereco', 200);
-            $table->timestamp('data_inicio');
-            $table->timestamp('data_fim');
+            $table->timestamp('data_inicio')->useCurrent();
+            $table->timestamp('data_fim')->nullable();
             $table->timestamps();
 
             $table->foreign('id_instituicao')
