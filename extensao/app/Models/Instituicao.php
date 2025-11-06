@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Instituicao extends Model
 {
+    use HasFactory;
+
+    protected $table = 'instituicaos';
+
+    protected $fillable = [
+        'id_usuario',
+        'name',
+        'email',
+        'password',
+        'cnpj',
+        'endereco',
+    ];
+
+    protected $hidden = ['password'];
+
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class);
+        return $this->belongsTo(Usuario::class, 'id_usuario');
     }
 
     public function estoque()
@@ -20,10 +36,4 @@ class Instituicao extends Model
     {
         return $this->hasMany(Ponto_de_coleta::class);
     }
-
-    protected $fillable = [
-        'nome', 'cnpj', 'endereco', 'email', 'senha'
-    ];
-    protected $hidden = ['senha'];
-    
 }

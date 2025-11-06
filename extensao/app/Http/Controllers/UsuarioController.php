@@ -55,7 +55,7 @@ class UsuarioController extends Controller
         $usuario->save();
 
         // Redirecionamento com mensagem
-        return redirect()->route('home')->with('success', 'Estudante cadastrado com sucesso!');
+        return redirect()->route('usuarios.index')->with('success', 'Estudante cadastrado com sucesso!');
     }
 
     /**
@@ -72,7 +72,7 @@ class UsuarioController extends Controller
     public function edit(string $id)
     {
         $usuario = Usuario::findOrFail($id);
-        return view('usuario.edit', ['tipo' => 'estudante', 'dados' => $usuario]);
+        return view('usuario.edit', compact('usuario'));
     }
 
     /**
