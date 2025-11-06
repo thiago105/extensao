@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->string('nome', 100);
             $table->string('email')->unique();
             $table->string('genero');
             $table->string('cpf', 11)->unique();
@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('endereco', 200);
             $table->date('data_de_nascimento');
             $table->timestamps();
-            $table->integer('qntd_recebida');
-            $table->integer('qntd_doada');
+            $table->integer('qntd_recebida')->default(0)->change();
+            $table->integer('qntd_doada')->default(0)->change();
         });
     }
 
