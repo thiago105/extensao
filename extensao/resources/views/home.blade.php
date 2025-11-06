@@ -61,9 +61,9 @@
         }
 
         .bg-banner {
-            background-image: url('{{ asset(' imgs/banner.png') }}');
+            background-image: url('/imgs/banner.png');
             height: 70vh;
-            background-size: cover;
+            background-size: contain;
             background-position: center center;
             display: flex;
             justify-content: center;
@@ -165,29 +165,30 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="card p-4">
                             <div class="card-body">
-                                <h4 class="card-title text-center mb-4">AGENDE SUA COLETA</h4>
+                                <form method="POST">
+                                    <h4 class="card-title text-center mb-4">AGENDE SUA COLETA</h4>
 
-                                <div class="d-flex align-items-center mb-3">
-                                    <label for="nome" class="form-label me-3 text-uppercase fw-bold">NOME</label>
-                                    <input type="text" id="nome" name="nome" class="form-control" required>
-                                </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <label for="nome" class="form-label me-3 text-uppercase fw-bold">NOME</label>
+                                        <input type="text" id="nome" name="nome" class="form-control" required>
+                                    </div>
 
-                                <div class="d-flex align-items-center mb-3">
-                                    <label for="telefone"
-                                        class="form-label me-3 text-uppercase fw-bold">TELEFONE</label>
-                                    <input type="text" id="telefone" name="telefone" class="form-control" required>
-                                </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <label for="telefone"
+                                            class="form-label me-3 text-uppercase fw-bold">TELEFONE</label>
+                                        <input type="text" id="telefone" name="telefone" class="form-control" required>
+                                    </div>
 
-                                <div class="d-flex align-items-center mb-4">
-                                    <label for="email" class="form-label me-3 text-uppercase fw-bold">EMAIL</label>
-                                    <input type="email" id="email" name="email" class="form-control" required>
-                                </div>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <label for="email" class="form-label me-3 text-uppercase fw-bold">EMAIL</label>
+                                        <input type="email" id="email" name="email" class="form-control" required>
+                                    </div>
 
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-success custom-btn-agendar py-2">
-                                        <h4 class="m-0">AGENDAR</h4>
-                                    </button>
-                                </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-success custom-btn-agendar py-2">
+                                            <h4 class="m-0">AGENDAR</h4>
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -247,37 +248,171 @@
                         <h1>O QUE POSSO DOAR?</h1>
                         <hr class="w-25 mx-auto">
                     </div>
+
                     <div class="row justify-content-center text-center mt-4 g-4">
-                        <div class="col-md-4">
-                            <p>Livros</p>
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/livros.png') }}" class="img-fluid" alt="Livros"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">Livros</figcaption>
+                            </figure>
                         </div>
-                        <div class="col-md-4">
-                            <p>mochilas</p>
+
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/hqs.png') }}" class="img-fluid" alt="HQ's"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">HQ's</figcaption>
+                            </figure>
                         </div>
-                        <div class="col-md-4">
-                            <p>caneta</p>
+
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/mochila.png') }}" class="img-fluid" alt="Mochilas"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">Mochilas</figcaption>
+                            </figure>
                         </div>
-                        <div class="col-md-4">
-                            <p>revistas</p>
+
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/caneta.png') }}" class="img-fluid" alt="Canetas"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">Canetas</figcaption>
+                            </figure>
                         </div>
-                        <div class="col-md-4">
-                            <p>caderno</p>
+
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/revistas.png') }}" class="img-fluid" alt="Revistas"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">Revistas</figcaption>
+                            </figure>
                         </div>
-                        <div class="col-md-4">
-                            <p>lapis</p>
+
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/cadernos.png') }}" class="img-fluid" alt="Cadernos"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">Cadernos</figcaption>
+                            </figure>
                         </div>
-                        <div class="col-md-4">
-                            <p>hqs</p>
+
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/lapis.png') }}" class="img-fluid" alt="Lapis"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">Lapis</figcaption>
+                            </figure>
                         </div>
-                        <div class="col-md-4">
-                            <p>estojos</p>
+
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/estojo.png') }}" class="img-fluid" alt="Estojo"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">Estojo</figcaption>
+                            </figure>
                         </div>
-                        <div class="col-md-4">
-                            <p>Borracha</p>
+
+                        <div class="col-6 col-md-4">
+                            <figure class="figure text-center">
+                                <div class="rounded-circle d-flex align-items-center shadow-lg justify-content-center overflow-hidden"
+                                    style="width: 150px; height: 150px; background-color: #fcfcfcff;">
+                                    <img src="{{ asset('imgs/borracha.png') }}" class="img-fluid" alt="Borracha"
+                                        style="width: 80%; height: 80%; object-fit: contain;">
+                                </div>
+                                <figcaption class="figure-caption text-muted mt-2">Borracha</figcaption>
+                            </figure>
                         </div>
                     </div>
+
+                    <div class="col-md-10 offset-md-1 mt-4">
+                        <div class="col-12 text-center">
+                            <h1>COMO DOAR?</h1>
+                            <hr class="w-25 mx-auto">
+                        </div>
+
+                        <div class="row justify-content-center text-center mt-4 g-4">
+
+                            <div class="col-md-4 col-sm-6 col-12">
+                                <div class="card h-100 p-3 shadow-sm custom-value-card"
+                                    style="background-color: var(--cor-primaria);">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">Agende a Coleta</h4>
+                                        <p class="card-text fs-5">Você entra em contato conosco pelo site ou WhatsApp.
+                                            Agendamos o melhor dia e horário e retiramos os materiais escolares gratuitamente
+                                            no seu endereço.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 col-12">
+                                <div class="card h-100 p-3 shadow-sm custom-value-card"
+                                    style="background-color: var(--cor-terciaria);">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold"> Fazemos a Triagem</h4>
+                                        <p class="card-text fs-5">Recebemos o material e nossa equipe faz a triagem.
+                                            Separamos tudo por tipo (cadernos, lápis, mochilas, etc.) e verificamos o estado
+                                            de conservação para garantir que tudo chegue pronto para uso.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 col-12">
+                                <div class="card h-100 p-3 shadow-sm custom-value-card"
+                                    style="background-color: var(--cor-primaria);">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">O Destino Final</h4>
+                                        <p class="card-text fs-5">Montamos kits escolares completos e enviamos para nossas
+                                            instituições parceiras, ONGs e diretamente para alunos
+                                            e escolas em situação de vulnerabilidade social.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-5">
+                        <h1>NOSSOS PARCEIROS</h1>
+                        <hr class="w-25 mx-auto">
+                    </div>
+                    
+                    <div class="div">
+                    <!-- Pegar os nomes das instituições no banco de dados e fazer um carrosel de nomes,
+                      igual landing page de vendas -->
+                    </div>
+
                 </div>
+
             </div>
+
+
+
         </div>
         </div>
     </main>
