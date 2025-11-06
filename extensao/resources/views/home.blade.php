@@ -61,7 +61,7 @@
         }
 
         .bg-banner {
-            background-image: url('{{ asset('imgs/banner.png') }}');
+            background-image: url('{{ asset(' imgs/banner.png') }}');
             height: 70vh;
             background-size: cover;
             background-position: center center;
@@ -167,27 +167,27 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center mb-4">AGENDE SUA COLETA</h4>
 
-                                    <div class="d-flex align-items-center mb-3">
-                                        <label for="nome" class="form-label me-3 text-uppercase fw-bold">NOME</label>
-                                        <input type="text" id="nome" name="nome" class="form-control" required>
-                                    </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <label for="nome" class="form-label me-3 text-uppercase fw-bold">NOME</label>
+                                    <input type="text" id="nome" name="nome" class="form-control" required>
+                                </div>
 
-                                    <div class="d-flex align-items-center mb-3">
-                                        <label for="telefone"
-                                            class="form-label me-3 text-uppercase fw-bold">TELEFONE</label>
-                                        <input type="text" id="telefone" name="telefone" class="form-control" required>
-                                    </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <label for="telefone"
+                                        class="form-label me-3 text-uppercase fw-bold">TELEFONE</label>
+                                    <input type="text" id="telefone" name="telefone" class="form-control" required>
+                                </div>
 
-                                    <div class="d-flex align-items-center mb-4">
-                                        <label for="email" class="form-label me-3 text-uppercase fw-bold">EMAIL</label>
-                                        <input type="email" id="email" name="email" class="form-control" required>
-                                    </div>
+                                <div class="d-flex align-items-center mb-4">
+                                    <label for="email" class="form-label me-3 text-uppercase fw-bold">EMAIL</label>
+                                    <input type="email" id="email" name="email" class="form-control" required>
+                                </div>
 
-                                    <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-success custom-btn-agendar py-2">
-                                            <h4 class="m-0">AGENDAR</h4>
-                                        </button>
-                                    </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-success custom-btn-agendar py-2">
+                                        <h4 class="m-0">AGENDAR</h4>
+                                    </button>
+                                </div>
                                 </form>
                             </div>
                         </div>
@@ -242,8 +242,43 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-12 text-center mt-5">
+                        <h1>O QUE POSSO DOAR?</h1>
+                        <hr class="w-25 mx-auto">
+                    </div>
+                    <div class="row justify-content-center text-center mt-4 g-4">
+                        <div class="col-md-4">
+                            <p>Livros</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>mochilas</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>caneta</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>revistas</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>caderno</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>lapis</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>hqs</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>estojos</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>Borracha</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 
