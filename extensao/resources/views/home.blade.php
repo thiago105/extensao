@@ -139,7 +139,7 @@
                             <a class="nav-link" href="#">Parceiros</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ cadastro.index }}" class="btn btn-primary">
+                            <a href="" class="btn btn-primary">
                                 Login
                             </a>
                         </li>
