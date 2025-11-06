@@ -13,15 +13,6 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// Cadastro unificado (exibição)
-Route::view('cadastroUsuario', 'cadastroUsuario')->name('cadastroUsuario');
-
-// Rota para exibir o formulário de cadastro de usuário
-Route::get('/cadastroUsuario', [App\Http\Controllers\UsuarioController::class, 'create'])->name('usuarios.create');
-
-// Rota para salvar os dados do formulário
-Route::post('/cadastroUsuario', [App\Http\Controllers\UsuarioController::class, 'store'])->name('usuarios.store');
-
 Route::resource('usuarios', UsuarioController::class);
 
 Route::resource('instituicao', InstituicaoController::class);
