@@ -7,6 +7,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 
     <title>Lista de Usuários</title>
 
@@ -63,6 +65,13 @@
 <body>
     <div class="container">
         <h1>Lista de Usuários</h1>
+
+        <div>
+            <a href="{{ route('usuarios.create') }}" class="btn btn-success">
+                <i class="bi bi-person-plus-fill"></i>
+                Novo Usuario
+            </a>
+        </div>
 
         @if($usuarios->isEmpty())
         <div class="empty">Nenhum usuário cadastrado.</div>
