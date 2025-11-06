@@ -20,4 +20,10 @@ class Instituicao extends Model
     {
         return $this->hasMany(Ponto_de_coleta::class);
     }
+
+    protected $fillable = [
+        'nome', 'cnpj', 'endereco', 'email', 'senha'
+    ];
+    protected $hidden = ['senha'];
+    
 }

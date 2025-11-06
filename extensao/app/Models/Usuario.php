@@ -15,4 +15,11 @@ class Usuario extends Model
     {
         return $this->hasMany(Materiais_coletado::class);
     }
+
+    protected $fillable = [
+        'nome', 'email', 'genero', 'cpf', 'data_de_nascimento',
+        'telefone', 'endereco', 'senha'
+    ];
+    protected $hidden = ['senha'];
+    
 }

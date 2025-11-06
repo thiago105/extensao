@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Instituicao;
+use Illuminate\Support\Facades\Hash;
 
 class InstituicaoController extends Controller
 {
@@ -19,7 +21,7 @@ class InstituicaoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cadastroUsuario');
     }
 
     /**
@@ -27,7 +29,25 @@ class InstituicaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validação dos campos obrigatórios
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'cnpj' => 'required|string|max:18|unique:instituicaos,cnpj',
+            'endereco' => 'required|string|max:255',
+            'email' => 'required|email|unique:instituicaos,email',
+            'senha' => 'required|string|min:6',
+        ]);
+
+        // Criação do registro
+        $instituicao = new Instituicao();
+        $instituicao->nome = $request->nome;
+        $instituicao->cnpj = $request->cpf_cnpj;
+        $instituicao->endereco = $request->endereco;
+        $instituicao->email = $request->email;
+        $instituicao->senha = Hash::make($request->senha);
+        $instituicao->save();
+
+        return redirect()->route('home')->with('success', 'Instituição cadastrada com sucesso!');
     }
 
     /**
