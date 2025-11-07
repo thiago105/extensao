@@ -55,7 +55,7 @@ class UsuarioController extends Controller
         $usuario->save();
 
         // Redirecionamento com mensagem
-        return redirect()->route('usuarios.index')->with('success', 'Estudante cadastrado com sucesso!');
+        return redirect()->route('home')->with('success', 'Estudante cadastrado com sucesso!');
     }
 
     /**

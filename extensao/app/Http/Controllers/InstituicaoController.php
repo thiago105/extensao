@@ -49,7 +49,7 @@ class InstituicaoController extends Controller
             'endereco' => $request->endereco,
         ]);
 
-        return redirect()->route('instituicao.index')->with('success', 'Instituição cadastrada com sucesso!');
+        return redirect()->route('home')->with('success', 'Instituição cadastrada com sucesso!');
     }
 
     /**
