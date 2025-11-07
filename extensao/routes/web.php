@@ -13,6 +13,8 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::view('/cadastro', 'cadastro.index')->name('cadastro.index');
+
 Route::resource('usuarios', UsuarioController::class);
 
 Route::resource('instituicao', InstituicaoController::class);

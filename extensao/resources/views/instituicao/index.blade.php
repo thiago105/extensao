@@ -9,10 +9,8 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
+    <title>Lista de Instituições</title>
 
-    <title>Lista de Usuários</title>
-
-    <!-- Estilo rápido e limpo -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,54 +62,52 @@
 
 <body>
     <div class="container">
-        <h1>Lista de Usuários</h1>
+        <h1>Lista de Instituições</h1>
 
-        <div>
-            <a href="{{ route('usuarios.create') }}" class="btn btn-success">
-                <i class="bi bi-person-plus-fill"></i>
-                Novo Usuario
+        <div class="mb-3">
+            <a href="{{ route('instituicao.create') }}" class="btn btn-success">
+                <i class="bi bi-building-add"></i>
+                Nova Instituição
             </a>
         </div>
 
-        @if($usuarios->isEmpty())
-        <div class="empty">Nenhum usuário cadastrado.</div>
+        @if($instituicaos->isEmpty())
+        <div class="empty">Nenhuma instituição cadastrada.</div>
         @else
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Usuário Responsável</th>
                     <th>Nome</th>
                     <th>Email</th>
-                    <th>Gênero</th>
-                    <th>CPF</th>
-                    <th>Telefone</th>
+                    <th>CNPJ</th>
                     <th>Endereço</th>
-                    <th>Data de Nascimento</th>
-                    <th>Qtd. Recebida</th>
-                    <th>Qtd. Doada</th>
-                    <th>Açoes</th>
+                    <th>Criado em</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($usuarios as $usuario)
+                @foreach($instituicaos as $instituicao)
                 <tr>
-                    <td>{{ $usuario->id }}</td>
-                    <td>{{ $usuario->nome }}</td>
-                    <td>{{ $usuario->email }}</td>
-                    <td>{{ $usuario->genero }}</td>
-                    <td>{{ $usuario->cpf }}</td>
-                    <td>{{ $usuario->telefone }}</td>
-                    <td>{{ $usuario->endereco }}</td>
-                    <td>{{ \Carbon\Carbon::parse($usuario->data_de_nascimento)->format('d/m/Y') }}</td>
-                    <td>{{ $usuario->qntd_recebida }}</td>
-                    <td>{{ $usuario->qntd_doada }}</td>
+                    <td>{{ $instituicao->id }}</td>
+                    <td>{{ $instituicao->usuario->nome ?? '—' }}</td>
+                    <td>{{ $instituicao->name }}</td>
+                    <td>{{ $instituicao->email }}</td>
+                    <td>{{ $instituicao->cnpj }}</td>
+                    <td>{{ $instituicao->endereco }}</td>
+                    <td>{{ \Carbon\Carbon::parse($instituicao->created_at)->format('d/m/Y H:i') }}</td>
                     <td>
-                        <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{{ route('instituicao.edit', $instituicao->id) }}" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </a>
 
-                        <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" style="display:inline-block;">
+                        <form action="{{ route('instituicao.destroy', $instituicao->id) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Excluir Usuario?')">Excluir</button>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Excluir esta instituição?')">
+                                <i class="bi bi-trash-fill"></i> Excluir
+                            </button>
                         </form>
                     </td>
                 </tr>

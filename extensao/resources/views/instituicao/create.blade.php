@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Usuário - Traços de Esperança</title>
+    <title>Cadastrar Instituição - Traços de Esperança</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -61,6 +61,15 @@
             transform: scale(1.02);
         }
 
+        a.text-secondary {
+            color: #1a73e8 !important;
+            font-weight: 500;
+        }
+
+        a.text-secondary:hover {
+            text-decoration: underline;
+        }
+
         @keyframes fadeInUp {
             0% {
                 transform: translateY(20px);
@@ -77,60 +86,56 @@
 
 <body>
     <div class="container mt-5 mb-5">
-        <h2>Cadastro de Estudante</h2>
+        <h2>Cadastro de Instituição</h2>
 
-        <form action="{{ route('usuarios.store') }}" method="POST">
+        <form action="{{ route('instituicao.store') }}" method="POST">
             @csrf
 
             <div class="mb-3">
-                <label class="form-label">Nome</label>
-                <input type="text" name="nome" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Gênero</label>
-                <select name="genero" class="form-select" required>
-                    <option value="">-- Selecione --</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                    <option value="outro">Outro</option>
+                <label class="form-label">Usuário Responsável</label>
+                <select name="id_usuario" class="form-select" required>
+                    <option value="">Selecione um usuário</option>
+                    @foreach($usuarios as $usuario)
+                        <option value="{{ $usuario->id }}">{{ $usuario->nome }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">CPF</label>
-                <input type="text" name="cpf" class="form-control" required maxlength="14">
+                <label class="form-label">Nome da Instituição</label>
+                <input type="text" name="name" class="form-control" placeholder="Digite o nome" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Data de Nascimento</label>
-                <input type="date" name="data_de_nascimento" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Telefone</label>
-                <input type="text" name="telefone" class="form-control" required>
+                <label class="form-label">CNPJ</label>
+                <input type="text" name="cnpj" class="form-control" placeholder="Apenas números" maxlength="14" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Endereço</label>
-                <input type="text" name="endereco" class="form-control" required>
+                <input type="text" name="endereco" class="form-control" placeholder="Rua, número, bairro, cidade..." required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="exemplo@instituicao.com" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Senha</label>
-                <input type="password" name="senha" class="form-control" required>
+                <input type="password" name="password" class="form-control" placeholder="Crie uma senha" required>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 mt-3">
-                Cadastrar Estudante
+                Cadastrar Instituição
             </button>
         </form>
+
+        <div class="text-center mt-3">
+            <a href="{{ route('instituicao.index') }}" class="text-secondary text-decoration-none">
+                ← Voltar à lista
+            </a>
+        </div>
     </div>
 </body>
 

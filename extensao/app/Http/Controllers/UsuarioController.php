@@ -71,7 +71,8 @@ class UsuarioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $usuario = Usuario::findOrFail($id);
+        return view('usuario.edit', compact('usuario'));
     }
 
     /**
@@ -79,14 +80,40 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $usuario = Usuario::findOrFail($id);
+
+        $request->validate([
+            'nome' => 'required|string|max:100',
+            'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
+            'genero' => 'required',
+            'cpf' => 'required|string|max:11|unique:usuarios,cpf,' . $usuario->id,
+            'data_de_nascimento' => 'required|date',
+            'telefone' => 'required|string|max:11',
+            'endereco' => 'required|string|max:200',
+        ]);
+
+        $dados = $request->all();
+
+        if ($request->filled('password')) {
+            $dados['password'] = Hash::make($request->password);
+        } else {
+            unset($dados['password']);
+        }
+
+        $usuario->update($dados);
+
+        return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $usuario = Usuario::findOrFail($id);
+        $usuario->delete();
+
+        return redirect()->route('usuarios.index')->with('success', 'usuario excluido com sucesso!');
     }
 }
