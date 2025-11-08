@@ -32,7 +32,6 @@ class InstituicaoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_usuario' => 'required|exists:usuarios,id',
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:instituicaos,email',
             'password' => 'required|string|min:6',
@@ -41,7 +40,6 @@ class InstituicaoController extends Controller
         ]);
 
         Instituicao::create([
-            'id_usuario' => $request->id_usuario,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),

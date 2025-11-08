@@ -13,20 +13,12 @@ return new class extends Migration
     {
         Schema::create('instituicaos', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('id_usuario');
-    
             $table->string('name', 100);
             $table->string('email')->unique();
             $table->string('password');
             $table->string('cnpj', 14)->unique();
             $table->string('endereco', 200);
             $table->timestamps();
-
-            $table->foreign('id_usuario')
-                  ->references('id')
-                  ->on('usuarios')
-                  ->onDelete('cascade');
         });
     }
     

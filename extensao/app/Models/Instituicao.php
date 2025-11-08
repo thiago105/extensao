@@ -12,7 +12,6 @@ class Instituicao extends Model
     protected $table = 'instituicaos';
 
     protected $fillable = [
-        'id_usuario',
         'name',
         'email',
         'password',
@@ -21,11 +20,6 @@ class Instituicao extends Model
     ];
 
     protected $hidden = ['password'];
-
-    public function usuario()
-    {
-        return $this->belongsTo(Usuario::class, 'id_usuario');
-    }
 
     public function estoque()
     {
