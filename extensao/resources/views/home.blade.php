@@ -126,10 +126,9 @@
             color: #000;
         }
 
-        .titulos{
+        .titulos {
             margin-top: 50px;
         }
-
     </style>
 </head>
 
@@ -159,10 +158,16 @@
                             <a class="nav-link" href="#parceiros">Parceiros</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="btn btn-primary fs-4">
-                                Login
-                            </a>
+                            @if(Auth::guard('web')->check() || Auth::guard('instituicao')->check())
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger fs-4">Sair</button>
+                                </form>
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-primary fs-4">Login</a>
+                            @endif
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -222,10 +227,12 @@
 
                         <div class="col-md-10 offset-md-1 mt-4">
                             <h3 class="fw-bold text-center">Nossa missão</h3>
-                            <p class="text-justify fs-5">Na <strong>Traços de Esperança</strong>, acreditamos que a educação
+                            <p class="text-justify fs-5">Na <strong>Traços de Esperança</strong>, acreditamos que a
+                                educação
                                 é a ferramenta mais poderosa para desenhar um futuro melhor. Nossa missão é simples, mas
                                 vital: <strong>garantir que nenhuma criança deixe de sonhar por falta de um lápis ou um
-                                    caderno.</strong> Somos uma iniciativa dedicada a conectar quem tem materiais escolares
+                                    caderno.</strong> Somos uma iniciativa dedicada a conectar quem tem materiais
+                                escolares
                                 novos ou em bom estado com estudantes e escolas em situação de vulnerabilidade.</p>
 
                             <h3 class="fw-bold text-center mt-5">Nossos valores</h3>
@@ -235,7 +242,8 @@
                                         style="background-color: var(--cor-terciaria);">
                                         <div class="card-body">
                                             <h4 class="card-title fw-bold">🌟 Esperança</h4>
-                                            <p class="card-text fs-5">Oferecemos mais que material; oferecemos a esperança
+                                            <p class="card-text fs-5">Oferecemos mais que material; oferecemos a
+                                                esperança
                                                 de um futuro mais brilhante.</p>
                                         </div>
                                     </div>
@@ -257,7 +265,8 @@
                                         style="background-color: var(--cor-terciaria);">
                                         <div class="card-body">
                                             <h4 class="card-title fw-bold">🤝 Comunidade</h4>
-                                            <p class="card-text fs-5">Acreditamos no poder da solidariedade e da união para
+                                            <p class="card-text fs-5">Acreditamos no poder da solidariedade e da união
+                                                para
                                                 transformar vidas.</p>
                                         </div>
                                     </div>
@@ -392,8 +401,10 @@
                                         style="background-color: var(--cor-primaria);">
                                         <div class="card-body">
                                             <h4 class="card-title fw-bold">Agende a Coleta</h4>
-                                            <p class="card-text fs-5">Você entra em contato conosco pelo site ou WhatsApp.
-                                                Agendamos o melhor dia e horário e retiramos os materiais escolares gratuitamente
+                                            <p class="card-text fs-5">Você entra em contato conosco pelo site ou
+                                                WhatsApp.
+                                                Agendamos o melhor dia e horário e retiramos os materiais escolares
+                                                gratuitamente
                                                 no seu endereço.</p>
                                         </div>
                                     </div>
@@ -405,7 +416,8 @@
                                         <div class="card-body">
                                             <h4 class="card-title fw-bold"> Fazemos a Triagem</h4>
                                             <p class="card-text fs-5">Recebemos o material e nossa equipe faz a triagem.
-                                                Separamos tudo por tipo (cadernos, lápis, mochilas, etc.) e verificamos o estado
+                                                Separamos tudo por tipo (cadernos, lápis, mochilas, etc.) e verificamos
+                                                o estado
                                                 de conservação para garantir que tudo chegue pronto para uso.</p>
                                         </div>
                                     </div>
@@ -416,7 +428,8 @@
                                         style="background-color: var(--cor-primaria);">
                                         <div class="card-body">
                                             <h4 class="card-title fw-bold">O Destino Final</h4>
-                                            <p class="card-text fs-5">Montamos kits escolares completos e enviamos para nossas
+                                            <p class="card-text fs-5">Montamos kits escolares completos e enviamos para
+                                                nossas
                                                 instituições parceiras, ONGs e diretamente para alunos
                                                 e escolas em situação de vulnerabilidade social.</p>
                                         </div>
@@ -434,8 +447,6 @@
                         </div>
 
                         <div class="div">
-                            <!-- Pegar os nomes das instituições no banco de dados e fazer um carrosel de nomes,
-                      igual landing page de vendas -->
                         </div>
                     </section>
 
@@ -455,14 +466,13 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous">
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
 
 
 
 
 
-    </script>
+        </script>
     <script>
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -475,25 +485,24 @@
         };
 
         const observerOptions = {
-            root: null, 
+            root: null,
 
             rootMargin: '-130px 0px 0px 0px',
-            threshold: 0 
+            threshold: 0
         };
 
-        // Cria o Intersection Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
 
                 if (entry.isIntersecting) {
-                    removeActiveClasses(); 
+                    removeActiveClasses();
 
                     const sectionId = entry.target.id;
 
                     const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
 
                     if (activeLink) {
-                        activeLink.classList.add('active'); 
+                        activeLink.classList.add('active');
                     }
                 }
             });
@@ -504,7 +513,7 @@
         });
 
         navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 if (this.getAttribute('href').startsWith('#')) {
                     e.preventDefault();
 

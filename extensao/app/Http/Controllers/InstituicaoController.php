@@ -13,7 +13,7 @@ class InstituicaoController extends Controller
      */
     public function index()
     {
-        $instituicaos = \App\Models\Instituicao::with('usuario')->get();
+        $instituicaos = Instituicao::all();
         return view('instituicao.index', compact('instituicaos'));
     }
 
