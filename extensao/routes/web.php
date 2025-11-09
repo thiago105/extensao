@@ -81,13 +81,13 @@ Route::middleware(['auth:instituicao'])->group(function () {
     Route::put('/estoque/{id}', [EstoqueController::class, 'update'])->name('estoque.update');
     Route::delete('/estoque/{id}', [EstoqueController::class, 'destroy'])->name('estoque.destroy');
 
-    Route::get('/materiaisColetados', [Mateirais_coletadoController::class, 'index'])->name('materiaisColetados.index');
-    Route::get('/materiaisColetados/create', [Mateirais_coletadoController::class, 'create'])->name('materiaisColetados.create');
-    Route::post('/materiaisColetados', [Mateirais_coletadoController::class, 'store'])->name('materiaisColetados.store');
-    Route::get('/materiaisColetados/{id}', [Mateirais_coletadoController::class, 'show'])->name('materiaisColetados.show');
-    Route::get('/materiaisColetados/{id}/edit', [Mateirais_coletadoController::class, 'edit'])->name('materiaisColetados.edit');
-    Route::put('/materiaisColetados/{id}', [Mateirais_coletadoController::class, 'update'])->name('materiaisColetados.update');
-    Route::delete('/materiaisColetados/{id}', [Mateirais_coletadoController::class, 'destroy'])->name('materiaisColetados.destroy');
+    Route::get('/materiaisColetado', [Mateirais_coletadoController::class, 'index'])->name('materiaisColetados.index');
+    Route::get('/materiaisColetado/create', [Mateirais_coletadoController::class, 'create'])->name('materiaisColetados.create');
+    Route::post('/materiaisColetado', [Mateirais_coletadoController::class, 'store'])->name('materiaisColetados.store');
+    Route::get('/materiaisColetado/{id}', [Mateirais_coletadoController::class, 'show'])->name('materiaisColetados.show');
+    Route::get('/materiaisColetado/{id}/edit', [Mateirais_coletadoController::class, 'edit'])->name('materiaisColetados.edit');
+    Route::put('/materiaisColetado/{id}', [Mateirais_coletadoController::class, 'update'])->name('materiaisColetados.update');
+    Route::delete('/materiaisColetado/{id}', [Mateirais_coletadoController::class, 'destroy'])->name('materiaisColetados.destroy');
 
     Route::get('/pontoColeta', [Ponto_de_coletaController::class, 'index'])->name('pontoColeta.index');
     Route::get('/pontoColeta/create', [Ponto_de_coletaController::class, 'create'])->name('pontoColeta.create');

@@ -3,62 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Mateirais_coletado;
+use App\Models\Instituicao;
 
 class Mateirais_coletadoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $itens = \App\Models\Mateirais_coletado::with('instituicao')->get();
+        return view('mateirais_coletado.index', compact('itens'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
-        //
+        $instituicaos = Instituicao::all();
+        return view('mateirais_coletado.create', compact('instituicaos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'id_instituicao' => 'required|integer|exists:instituicaos,id',
+            'material' => 'required|string|max:100',
+            'condicao' => 'required|string|max:50',
+            'quantidade' => 'required|integer|min:1',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        Mateirais_coletado::create($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('mateirais_coletado.index')
+                         ->with('success', 'Material cadastrado com sucesso!');
     }
 }

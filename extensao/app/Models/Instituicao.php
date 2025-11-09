@@ -27,6 +27,11 @@ class Instituicao extends Authenticatable
         return $this->hasMany(Estoque::class);
     }
 
+    public function mateirais_coletado()
+    {
+        return $this->hasMany(Mateirais_coletado::class);
+    }
+
     public function ponto_de_coleta()
     {
         return $this->hasMany(Ponto_de_coleta::class);
