@@ -19,7 +19,7 @@ Route::resource('usuarios', UsuarioController::class);
 
 Route::resource('instituicao', InstituicaoController::class);
 
-Route::resource('materiaisColetados', Mateirais_coletadoController::class);
+Route::resource('mateirais_coletado', Mateirais_coletadoController::class);
 
 Route::resource('estoque', EstoqueController::class);
 

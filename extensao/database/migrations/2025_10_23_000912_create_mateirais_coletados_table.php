@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('mateirais_coletados', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_usuario');
+            $table->unsignedBigInteger('id_instituicao');
             $table->string('material', 100);
             $table->string('condicao');
             $table->integer('quantidade');
             $table->timestamps();
 
-            $table->foreign('id_usuario')
+            $table->foreign('id_instituicao')
                   ->references('id')
-                  ->on('usuarios')
+                  ->on('instituicaos')
                   ->onDelete('cascade');
         });
     }
