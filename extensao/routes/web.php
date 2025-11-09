@@ -20,7 +20,11 @@ Route::view('/cadastro', 'cadastro.index')->name('cadastro.index');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
+Route::get('/instituicao/create', [InstituicaoController::class, 'create'])->name('instituicao.create');
 
+Route::post('/instituicao', [InstituicaoController::class, 'store'])->name('instituicao.store');
+Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
 Route::get('/instituicao/login', [InstituicaoLoginController::class, 'showLoginForm'])->name('instituicao.login.form');
 Route::post('/instituicao/login', [InstituicaoLoginController::class, 'login'])->name('instituicao.login');
 
@@ -29,9 +33,9 @@ Route::middleware(['auth:web'])->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    
+    
     Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
-    Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
-    Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
     Route::get('/usuarios/{id}', [UsuarioController::class, 'show'])->name('usuarios.show');
     Route::get('/usuarios/{id}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
     Route::put('/usuarios/{id}', [UsuarioController::class, 'update'])->name('usuarios.update');
@@ -60,10 +64,10 @@ Route::middleware(['auth:web'])->group(function () {
 // ==========================
 Route::middleware(['auth:instituicao'])->group(function () {
 
-    Route::get('/instituicao', [InstituicaoController::class, 'index'])->name('instituicao.index');
+    
 
-    Route::get('/instituicao/create', [InstituicaoController::class, 'create'])->name('instituicao.create');
-    Route::post('/instituicao', [InstituicaoController::class, 'store'])->name('instituicao.store');
+    
+    Route::get('/instituicao', [InstituicaoController::class, 'index'])->name('instituicao.index');
     Route::get('/instituicao/{id}', [InstituicaoController::class, 'show'])->name('instituicao.show');
     Route::get('/instituicao/{id}/edit', [InstituicaoController::class, 'edit'])->name('instituicao.edit');
     Route::put('/instituicao/{id}', [InstituicaoController::class, 'update'])->name('instituicao.update');
