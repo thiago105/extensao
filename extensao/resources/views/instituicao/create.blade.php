@@ -90,7 +90,7 @@
 
         <form action="{{ route('instituicao.store') }}" method="POST">
             @csrf
-            
+
             <div class="mb-3">
                 <label class="form-label">Nome da Instituição</label>
                 <input type="text" name="name" class="form-control" placeholder="Digite o nome" required>
