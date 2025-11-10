@@ -9,6 +9,7 @@ use App\Http\Controllers\Ponto_de_coletaController;
 use App\Http\Controllers\MateriaisController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\InstituicaoLoginController;
+use App\Http\Controllers\DoacaoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -80,6 +81,14 @@ Route::middleware(['auth:instituicao'])->group(function () {
     Route::get('/estoque/{id}/edit', [EstoqueController::class, 'edit'])->name('estoque.edit');
     Route::put('/estoque/{id}', [EstoqueController::class, 'update'])->name('estoque.update');
     Route::delete('/estoque/{id}', [EstoqueController::class, 'destroy'])->name('estoque.destroy');
+  
+    Route::get('/doacoes', [DoacaoController::class, 'index'])->name('doacoes.index');
+    Route::get('/doacoes/create', [DoacaoController::class, 'create'])->name('doacoes.create');
+    Route::post('/doacoes', [DoacaoController::class, 'store'])->name('doacoes.store');
+    Route::get('/doacoes/{id}', [DoacaoController::class, 'show'])->name('doacoes.show');
+    Route::get('/doacoes/{id}/edit', [DoacaoController::class, 'edit'])->name('doacoes.edit');
+    Route::put('/doacoes/{id}', [DoacaoController::class, 'update'])->name('doacoes.update');
+    Route::delete('/doacoes/{id}', [DoacaoController::class, 'destroy'])->name('doacoes.destroy');
 
     Route::get('/materiaisColetado', [Mateirais_coletadoController::class, 'index'])->name('mateirais_coletado.index');
     Route::get('/materiaisColetado/create', [Mateirais_coletadoController::class, 'create'])->name('mateirais_coletado.create');
