@@ -19,29 +19,33 @@ Route::get('/', function () {
 
 Route::view('/cadastro', 'cadastro.index')->name('cadastro.index');
 
+// Login geral
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
-Route::get('/instituicao/create', [InstituicaoController::class, 'create'])->name('instituicao.create');
 
-Route::post('/instituicao', [InstituicaoController::class, 'store'])->name('instituicao.store');
+// Cadastro
+Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
 Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+Route::get('/instituicao/create', [InstituicaoController::class, 'create'])->name('instituicao.create');
+Route::post('/instituicao', [InstituicaoController::class, 'store'])->name('instituicao.store');
+
+// Login instituição
 Route::get('/instituicao/login', [InstituicaoLoginController::class, 'showLoginForm'])->name('instituicao.login.form');
 Route::post('/instituicao/login', [InstituicaoLoginController::class, 'login'])->name('instituicao.login');
 
 // Rotas para Usuarios
-Route::middleware(['auth:web'])->group(function () {
+Route::middleware(['auth.ambos'])->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    
-    
+    // Usuários
     Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
     Route::get('/usuarios/{id}', [UsuarioController::class, 'show'])->name('usuarios.show');
     Route::get('/usuarios/{id}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
     Route::put('/usuarios/{id}', [UsuarioController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
 
+    // Itens doados
     Route::get('/itemDoado', [Item_doadoController::class, 'index'])->name('itemDoado.index');
     Route::get('/itemDoado/create', [Item_doadoController::class, 'create'])->name('itemDoado.create');
     Route::post('/itemDoado', [Item_doadoController::class, 'store'])->name('itemDoado.store');
@@ -50,6 +54,7 @@ Route::middleware(['auth:web'])->group(function () {
     Route::put('/itemDoado/{id}', [Item_doadoController::class, 'update'])->name('itemDoado.update');
     Route::delete('/itemDoado/{id}', [Item_doadoController::class, 'destroy'])->name('itemDoado.destroy');
 
+    // Materiais
     Route::get('/materiais', [MateriaisController::class, 'index'])->name('materiais.index');
     Route::get('/materiais/create', [MateriaisController::class, 'create'])->name('materiais.create');
     Route::post('/materiais', [MateriaisController::class, 'store'])->name('materiais.store');
@@ -63,17 +68,15 @@ Route::middleware(['auth:web'])->group(function () {
 // ==========================
 // rotas para instituições
 // ==========================
-Route::middleware(['auth:instituicao'])->group(function () {
+Route::middleware('auth:instituicao')->group(function () {
 
-    
-
-    
     Route::get('/instituicao', [InstituicaoController::class, 'index'])->name('instituicao.index');
     Route::get('/instituicao/{id}', [InstituicaoController::class, 'show'])->name('instituicao.show');
     Route::get('/instituicao/{id}/edit', [InstituicaoController::class, 'edit'])->name('instituicao.edit');
     Route::put('/instituicao/{id}', [InstituicaoController::class, 'update'])->name('instituicao.update');
     Route::delete('/instituicao/{id}', [InstituicaoController::class, 'destroy'])->name('instituicao.destroy');
 
+    // Estoque
     Route::get('/estoque', [EstoqueController::class, 'index'])->name('estoque.index');
     Route::get('/estoque/create', [EstoqueController::class, 'create'])->name('estoque.create');
     Route::post('/estoque', [EstoqueController::class, 'store'])->name('estoque.store');
@@ -81,7 +84,8 @@ Route::middleware(['auth:instituicao'])->group(function () {
     Route::get('/estoque/{id}/edit', [EstoqueController::class, 'edit'])->name('estoque.edit');
     Route::put('/estoque/{id}', [EstoqueController::class, 'update'])->name('estoque.update');
     Route::delete('/estoque/{id}', [EstoqueController::class, 'destroy'])->name('estoque.destroy');
-  
+
+    // Doações
     Route::get('/doacoes', [DoacaoController::class, 'index'])->name('doacoes.index');
     Route::get('/doacoes/create', [DoacaoController::class, 'create'])->name('doacoes.create');
     Route::post('/doacoes', [DoacaoController::class, 'store'])->name('doacoes.store');
@@ -90,6 +94,7 @@ Route::middleware(['auth:instituicao'])->group(function () {
     Route::put('/doacoes/{id}', [DoacaoController::class, 'update'])->name('doacoes.update');
     Route::delete('/doacoes/{id}', [DoacaoController::class, 'destroy'])->name('doacoes.destroy');
 
+    // Materiais coletados
     Route::get('/materiaisColetado', [Mateirais_coletadoController::class, 'index'])->name('mateirais_coletado.index');
     Route::get('/materiaisColetado/create', [Mateirais_coletadoController::class, 'create'])->name('mateirais_coletado.create');
     Route::post('/materiaisColetado', [Mateirais_coletadoController::class, 'store'])->name('mateirais_coletado.store');
@@ -98,6 +103,7 @@ Route::middleware(['auth:instituicao'])->group(function () {
     Route::put('/materiaisColetado/{id}', [Mateirais_coletadoController::class, 'update'])->name('mateirais_coletado.update');
     Route::delete('/materiaisColetado/{id}', [Mateirais_coletadoController::class, 'destroy'])->name('mateirais_coletado.destroy');
 
+    // Pontos de coleta
     Route::get('/pontoColeta', [Ponto_de_coletaController::class, 'index'])->name('pontoColeta.index');
     Route::get('/pontoColeta/create', [Ponto_de_coletaController::class, 'create'])->name('pontoColeta.create');
     Route::post('/pontoColeta', [Ponto_de_coletaController::class, 'store'])->name('pontoColeta.store');
@@ -106,6 +112,7 @@ Route::middleware(['auth:instituicao'])->group(function () {
     Route::put('/pontoColeta/{id}', [Ponto_de_coletaController::class, 'update'])->name('pontoColeta.update');
     Route::delete('/pontoColeta/{id}', [Ponto_de_coletaController::class, 'destroy'])->name('pontoColeta.destroy');
 });
+
 
 Auth::routes(['register' => false]);
 
