@@ -9,7 +9,7 @@ use App\Http\Controllers\Ponto_de_coletaController;
 use App\Http\Controllers\MateriaisController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\InstituicaoLoginController;
-use App\Http\Controllers\Auth\DoacaoController;
+use App\Http\Controllers\DoacaoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
