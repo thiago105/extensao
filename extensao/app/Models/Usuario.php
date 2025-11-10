@@ -2,19 +2,38 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
+    use Notifiable;
+
+    protected $table = 'usuarios';
+
+    protected $fillable = [
+        'nome',
+        'email',
+        'genero',
+        'cpf',
+        'data_de_nascimento',
+        'telefone',
+        'endereco',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    public function instituicoes()
+    {
+        return $this->hasMany(Instituicao::class);
+    }
+
     public function materiais_coletados()
     {
         return $this->hasMany(Materiais_coletado::class);
     }
-
-    protected $fillable = [
-        'nome', 'email', 'genero', 'cpf', 'data_de_nascimento',
-        'telefone', 'endereco', 'senha'
-    ];
-    protected $hidden = ['senha'];
-    
 }

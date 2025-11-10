@@ -78,7 +78,6 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Usuário Responsável</th>
                     <th>Nome</th>
                     <th>Email</th>
                     <th>CNPJ</th>
@@ -91,7 +90,6 @@
                 @foreach($instituicaos as $instituicao)
                 <tr>
                     <td>{{ $instituicao->id }}</td>
-                    <td>{{ $instituicao->usuario->nome ?? '—' }}</td>
                     <td>{{ $instituicao->name }}</td>
                     <td>{{ $instituicao->email }}</td>
                     <td>{{ $instituicao->cnpj }}</td>
