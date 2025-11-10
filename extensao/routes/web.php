@@ -10,6 +10,7 @@ use App\Http\Controllers\MateriaisController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\InstituicaoLoginController;
 use App\Http\Controllers\DoacaoController;
+use App\Http\Controllers\AreaDoUsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,10 @@ Route::middleware(['auth.ambos'])->group(function () {
     Route::get('/usuarios/{id}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
     Route::put('/usuarios/{id}', [UsuarioController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+
+    // Area do usuário
+    Route::get('/area-do-usuario', [AreaDoUsuarioController::class, 'index'])->name('areaDoUsuario.index');
+    Route::get('/area-do-usuario/solicitar-doacao', [AreaDoUsuarioController::class, 'solicitarDoacao'])->name('areaDoUsuario.solicitarDoacao');
 
     // Itens doados
     Route::get('/itemDoado', [Item_doadoController::class, 'index'])->name('itemDoado.index');
