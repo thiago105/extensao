@@ -86,6 +86,8 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::put('/instituicao/{id}', [InstituicaoController::class, 'update'])->name('instituicao.update');
     Route::delete('/instituicao/{id}', [InstituicaoController::class, 'destroy'])->name('instituicao.destroy');
 
+
+
     // Estoque
     Route::get('/estoque', [EstoqueInstituicaoController::class, 'index'])->name('estoque.index');
     Route::get('/estoque/create', [EstoqueInstituicaoController::class, 'create'])->name('estoque.create');
@@ -114,13 +116,30 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::delete('/doacoes/{id}', [DoacaoRecebidaController::class, 'destroy'])->name('doacoes.destroy');
 
     // Pontos de coleta
-    Route::get('/pontoColeta', [Ponto_de_coletaController::class, 'index'])->name('pontoColeta.index');
-    Route::get('/pontoColeta/create', [Ponto_de_coletaController::class, 'create'])->name('pontoColeta.create');
-    Route::post('/pontoColeta', [Ponto_de_coletaController::class, 'store'])->name('pontoColeta.store');
-    Route::get('/pontoColeta/{id}', [Ponto_de_coletaController::class, 'show'])->name('pontoColeta.show');
-    Route::get('/pontoColeta/{id}/edit', [Ponto_de_coletaController::class, 'edit'])->name('pontoColeta.edit');
-    Route::put('/pontoColeta/{id}', [Ponto_de_coletaController::class, 'update'])->name('pontoColeta.update');
-    Route::delete('/pontoColeta/{id}', [Ponto_de_coletaController::class, 'destroy'])->name('pontoColeta.destroy');
+    Route::get('/ponto-de-coleta/create', [Ponto_de_coletaController::class, 'create'])->name('pontoDeColeta.create');
+    Route::post('/ponto-de-coleta', [Ponto_de_coletaController::class, 'store'])->name('pontoDeColeta.store');
+    Route::get('/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'show'])->name('pontoDeColeta.show');
+    Route::get('/ponto-de-coleta/{id}/edit', [Ponto_de_coletaController::class, 'edit'])->name('pontoDeColeta.edit');
+    Route::put('/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'update'])->name('pontoDeColeta.update');
+
+    Route::get('/area-da-instituicao/ponto-de-coleta', [Ponto_de_coletaController::class, 'index'])
+        ->name('areaDaInstituicao.pontoDeColeta.index');
+
+    Route::get('/area-da-instituicao/ponto-de-coleta/novo', [Ponto_de_coletaController::class, 'create'])
+        ->name('areaDaInstituicao.pontoDeColeta.create');
+
+    Route::post('/area-da-instituicao/ponto-de-coleta', [Ponto_de_coletaController::class, 'store'])
+        ->name('areaDaInstituicao.pontoDeColeta.store');
+
+    Route::get('/area-da-instituicao/ponto-de-coleta/{id}/editar', [Ponto_de_coletaController::class, 'edit'])
+        ->name('areaDaInstituicao.pontoDeColeta.edit');
+
+    Route::put('/area-da-instituicao/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'update'])
+        ->name('areaDaInstituicao.pontoDeColeta.update');
+
+
+    Route::delete('/area-da-instituicao/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'destroy'])
+        ->name('areaDaInstituicao.pontoDeColeta.destroy');
 });
 
 

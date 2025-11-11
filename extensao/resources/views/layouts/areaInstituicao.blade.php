@@ -170,7 +170,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('areaDaInstituicao.pontoDeColeta') }}" class="nav-link">
+                    <a href="{{ route('areaDaInstituicao.pontoDeColeta.index') }}" class="nav-link">
                     <i class="bi bi-geo"></i>
                     <span class="sidebar-text">Gerenciar Pontos de Coleta</span>
                     </a>
@@ -198,9 +198,22 @@
     </div>
 
     <script>
+        function setInitialSidebarState() {
+        const sidebar = document.getElementById('sidebar');
+        const contentWrapper = document.getElementById('content-wrapper');
+        
+       
+        if (window.innerWidth <= 768) {
+            sidebar.classList.add('collapsed');
+            contentWrapper.classList.add('expanded');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', setInitialSidebarState);
+
         document.getElementById('toggleSidebar').addEventListener('click', () => {
             document.getElementById('sidebar').classList.toggle('collapsed');
-            document.getElementById('content-wrapper').classList.toggle('expanded');
+            document.getElementById('content-wrapper').classList.toggle('   ');
         });
     </script>
 

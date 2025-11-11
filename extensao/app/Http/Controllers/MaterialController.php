@@ -5,8 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Material;
 use Illuminate\Http\Request;
 
+
 class MaterialController extends Controller
 {
+    
+    public function index()
+    {
+        $materiais = Material::orderBy('name', 'asc')->get(); 
+
+        return view('areaDaInstituicao.material', compact('materiais'));
+    }
 
     public function create()
     {
