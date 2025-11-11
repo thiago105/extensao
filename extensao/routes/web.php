@@ -49,6 +49,10 @@ Route::middleware(['auth.ambos'])->group(function () {
     // Area do usuário
     Route::get('/area-do-usuario', [AreaDoUsuarioController::class, 'index'])->name('areaDoUsuario.index');
     Route::get('/area-do-usuario/solicitar-doacao', [AreaDoUsuarioController::class, 'solicitarDoacao'])->name('areaDoUsuario.solicitarDoacao');
+    Route::get('/area-do-usuario/ponto-de-coleta', [AreaDoUsuarioController::class,'pontoDeColeta'])->name('areaDoUsuario.pontoDeColeta');
+    Route::get('/area-do-usuario/dashboard', [AreaDoUsuarioController::class, 'dashboard'])->name('areaDoUsuario.dashboard');
+    Route::get('/area-do-usuario/pedidos', [AreaDoUsuarioController::class, 'pedidos'])->name('areaDoUsuario.pedidos');
+    Route::get('/area-do-usuario/perfilUsuario', [AreaDoUsuarioController::class, 'perfilUsuario'])->name('areaDoUsuario.perfilUsuario');
 
     // Itens doados
     Route::get('/itemDoado', [Item_doadoController::class, 'index'])->name('itemDoado.index');

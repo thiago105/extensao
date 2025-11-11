@@ -14,5 +14,18 @@ class AreaDoUsuarioController extends Controller
         return view("areaDoUsuario.solicitarDoacao");
     }
 
-    
+    public function dashboard(){
+        return view("areaDoUsuario.dashboard");
+    }
+
+    public function pedidos(){
+        return view("areaDoUsuario.pedidos");
+    }
+
+    public function perfilUsuario(){
+        return view("areaDoUsuario.perfilUsuario");
+    }
+    public function pontoDeColeta(){
+        return view("areaDoUsuario.pontoDeColeta");
+    }
 }

@@ -152,25 +152,31 @@
         <nav id="sidebar">
             <ul class="nav flex-column p-2 pt-3">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('areaDoUsuario.dashboard') }}" class="nav-link">
                         <i class="bi bi-grid-fill"></i>
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('areaDoUsuario.pontoDeColeta') }}" class="nav-link">
+                    <i class="bi bi-geo"></i>
+                    <span class="sidebar-text">Ponto de Coleta</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('areaDoUsuario.solicitarDoacao') }}" class="nav-link">
                         <i class="bi bi-balloon-heart"></i>
                         <span class="sidebar-text">Solicitar Doação</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('areaDoUsuario.pedidos') }}" class="nav-link">
                         <i class="bi bi-list-check"></i>
                         <span class="sidebar-text">Pedidos</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('areaDoUsuario.perfilUsuario') }}" class="nav-link">
                         <i class="bi bi-person-fill"></i>
                         <span class="sidebar-text">Perfil</span>
                     </a>
