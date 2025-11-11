@@ -158,7 +158,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('areaDaInstituicao.pedidosDeDoacao') }}" class="nav-link">
+                    <a href="{{ route('areaDaInstituicao.material') }}" class="nav-link">
+                        <i class="bi bi-book"></i>
+                        <span class="sidebar-text">Material</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('areaDaInstituicao.estoque') }}" class="nav-link">
                         <i class="bi bi-balloon-heart"></i>
                         <span class="sidebar-text">Estoque</span>
                     </a>
