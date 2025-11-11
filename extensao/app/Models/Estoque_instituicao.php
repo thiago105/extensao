@@ -12,21 +12,19 @@ class Estoque_instituicao extends Model
     protected $table = 'estoque_instituicaos';
 
     protected $fillable = [
-        'instituicaos_id',
+        'instituicao_id',
         'material_id',
-        'quantidade',
+        'quantidade'
     ];
-
-    protected $casts = [
-        'quantidade' => 'integer',
-    ];
-    public function instituicao()
-    {
-        return $this->belongsTo(Instituicao::class, 'instituicaos_id');
-    }
 
     public function material()
     {
         return $this->belongsTo(Material::class, 'material_id');
     }
+
+    public function instituicao()
+    {
+        return $this->belongsTo(Instituicao::class, 'instituicaos_id');
+    }
 }
+

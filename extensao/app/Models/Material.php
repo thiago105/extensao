@@ -9,11 +9,11 @@ class Material extends Model
 {
     use HasFactory;
 
-     protected $table = 'material';
+    protected $table = 'material';
 
-     public $timestamps = false;
+    public $timestamps = false;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
     ];
 }

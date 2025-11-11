@@ -54,15 +54,6 @@ Route::middleware(['auth.ambos'])->group(function () {
     Route::get('/area-do-usuario/dashboard', [AreaDoUsuarioController::class, 'dashboard'])->name('areaDoUsuario.dashboard');
     Route::get('/area-do-usuario/pedidos', [AreaDoUsuarioController::class, 'pedidos'])->name('areaDoUsuario.pedidos');
     Route::get('/area-do-usuario/perfilUsuario', [AreaDoUsuarioController::class, 'perfilUsuario'])->name('areaDoUsuario.perfilUsuario');
-
-    // Materiais
-    Route::get('/materiais', [MaterialController::class, 'index'])->name('materiais.index');
-    Route::get('/materiais/create', [MaterialController::class, 'create'])->name('materiais.create');
-    Route::post('/materiais', [MaterialController::class, 'store'])->name('materiais.store');
-    Route::get('/materiais/{id}', [MaterialController::class, 'show'])->name('materiais.show');
-    Route::get('/materiais/{id}/edit', [MaterialController::class, 'edit'])->name('materiais.edit');
-    Route::put('/materiais/{id}', [MaterialController::class, 'update'])->name('materiais.update');
-    Route::delete('/materiais/{id}', [MaterialController::class, 'destroy'])->name('materiais.destroy');
 });
 
 
@@ -77,6 +68,7 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::get('/area-da-instituicao/pedidos-de-doacao', [AreaDaIntituicaoController::class,'pedidosDeDoacao'])->name('areaDaInstituicao.pedidosDeDoacao');
     Route::get('/area-da-instituicao/ponto-de-coleta', [AreaDaIntituicaoController::class,'pontoDeColeta'])->name('areaDaInstituicao.pontoDeColeta');
     Route::get('/area-da-instituicao/perfil', [AreaDaIntituicaoController::class,'perfilInstituicao'])->name('areaDaInstituicao.perfilInstituicao');
+    Route::get('/area-da-instituicao/material', [AreaDaIntituicaoController::class,'material'])->name('areaDaInstituicao.material');
 
 
     Route::get('/instituicao', [InstituicaoController::class, 'index'])->name('instituicao.index');
@@ -93,6 +85,15 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::get('/estoque/{id}/edit', [EstoqueInstituicaoController::class, 'edit'])->name('estoque.edit');
     Route::put('/estoque/{id}', [EstoqueInstituicaoController::class, 'update'])->name('estoque.update');
     Route::delete('/estoque/{id}', [EstoqueInstituicaoController::class, 'destroy'])->name('estoque.destroy');
+
+    // Material
+    Route::get('/material', [MaterialController::class, 'index'])->name('material.index');
+    Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
+    Route::post('/material', [MaterialController::class, 'store'])->name('material.store');
+    Route::get('/material/{id}', [MaterialController::class, 'show'])->name('material.show');
+    Route::get('/material/{id}/edit', [MaterialController::class, 'edit'])->name('material.edit');
+    Route::put('/material/{id}', [MaterialController::class, 'update'])->name('material.update');
+    Route::delete('/material/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
 
     // Doações
     Route::get('/doacoes', [DoacaoRecebidaController::class, 'index'])->name('doacoes.index');
