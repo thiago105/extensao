@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\InstituicaoLoginController;
 use App\Http\Controllers\DoacaoRecebidaController;
 use App\Http\Controllers\AreaDoUsuarioController;
+use App\Http\Controllers\AreaDaIntituicaoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,14 @@ Route::middleware(['auth.ambos'])->group(function () {
 // rotas para instituições
 // ==========================
 Route::middleware('auth:instituicao')->group(function () {
+
+    //areaDaInstituicao
+    Route::get('/area-da-instituicao', [AreaDaIntituicaoController::class,'index'])->name('areaDaInstituicao.index');
+    Route::get('/area-da-instituicao/estoque', [AreaDaIntituicaoController::class,'estoque'])->name('areaDaInstituicao.estoque');
+    Route::get('/area-da-instituicao/pedidos-de-doacao', [AreaDaIntituicaoController::class,'pedidosDeDoacao'])->name('areaDaInstituicao.pedidosDeDoacao');
+    Route::get('/area-da-instituicao/ponto-de-coleta', [AreaDaIntituicaoController::class,'pontoDeColeta'])->name('areaDaInstituicao.pontoDeColeta');
+    Route::get('/area-da-instituicao/perfil', [AreaDaIntituicaoController::class,'perfilInstituicao'])->name('areaDaInstituicao.perfilInstituicao');
+
 
     Route::get('/instituicao', [InstituicaoController::class, 'index'])->name('instituicao.index');
     Route::get('/instituicao/{id}', [InstituicaoController::class, 'show'])->name('instituicao.show');
