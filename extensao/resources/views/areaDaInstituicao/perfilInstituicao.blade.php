@@ -19,14 +19,6 @@
     */
 </style>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h1>Perfil</h1>
-        </div>
-    </div>
-</div>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -55,7 +47,6 @@
 
 
     <div class="row">
-
         <div class="col-lg-8 mb-4">
             <div class="card shadow-sm">
                 <div class="card-header">
@@ -120,7 +111,6 @@
                                     Salvar Alterações
                                 </button>
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -136,19 +126,38 @@
                     <p>Ao apagar sua conta, todas as informações associadas (pontos de coleta, estoque, etc.) serão permanentemente removidas.</p>
                     <p><strong>Esta ação não pode ser desfeita.</strong></p>
 
-                    <form action="{{ route('instituicao.destroy', $instituicao->id) }}" method="POST"
-                        onsubmit="return confirm('ATENÇÃO: Tem certeza que deseja apagar sua conta? Esta ação é irreversível!');">
-                        @csrf
-                        @method('DELETE')
-
-                        <button type="submit" class="btn btn-danger">
-                            Apagar Minha Conta Permanentemente
-                        </button>
-                    </form>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteInstituicaoModal">
+                        Apagar Minha Conta Permanentemente
+                    </button>
                 </div>
             </div>
         </div>
 
+    </div>
+</div>
+
+
+<div class="modal fade" id="deleteInstituicaoModal" tabindex="-1" aria-labelledby="deleteInstituicaoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteInstituicaoModalLabel">Confirmar Exclusão da Conta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Você tem certeza que deseja excluir esta conta de instituição?</strong></p>
+                <p>Esta ação não pode ser desfeita. Todos os seus dados (pontos de coleta, estoque, etc.) serão permanentemente removidos.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                <form action="{{ route('instituicao.destroy', $instituicao->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Sim, excluir esta conta</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

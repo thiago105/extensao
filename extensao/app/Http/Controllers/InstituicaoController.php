@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Instituicao;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class InstituicaoController extends Controller
 {
@@ -77,23 +78,21 @@ class InstituicaoController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:instituicaos,email,' . $instituicao->id,
-            'password' => 'nullable|string|min:6',
+            'password' => 'nullable|string|min:6|confirmed',
             'cnpj' => 'required|string|max:14|unique:instituicaos,cnpj,' . $instituicao->id,
             'endereco' => 'required|string|max:200',
         ]);
 
-        $dados = $request->all();
+        $dados = $request->except(['password', 'password_confirmation']);
 
         // Atualiza a senha apenas se o campo for preenchido
         if (!empty($request->password)) {
             $dados['password'] = bcrypt($request->password);
-        } else {
-            unset($dados['password']);
         }
 
         $instituicao->update($dados);
 
-        return redirect()->route('instituicao.index')->with('success', 'Instituição atualizada com sucesso!');
+        return redirect()->route('areaDaInstituicao.perfilInstituicao')->with('success', 'Salvo com sucesso!');
     }
 
     /**
@@ -104,6 +103,6 @@ class InstituicaoController extends Controller
         $instituicao = Instituicao::findOrFail($id);
         $instituicao->delete();
 
-        return redirect()->route('instituicao.index')->with('success', 'Instituição excluída com sucesso!');
+        return redirect('/')->with('success', 'Conta excluída com sucesso!');
     }
 }

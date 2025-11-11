@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AreaDoUsuarioController extends Controller
 {
@@ -23,7 +24,10 @@ class AreaDoUsuarioController extends Controller
     }
 
     public function perfilUsuario(){
-        return view("areaDoUsuario.perfilUsuario");
+        
+        $usuario = Auth::user();
+
+        return view("areaDoUsuario.perfilUsuario", compact("usuario"));
     }
     public function pontoDeColeta(){
         return view("areaDoUsuario.pontoDeColeta");

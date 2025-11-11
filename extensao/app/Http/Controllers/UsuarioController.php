@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
@@ -80,29 +81,32 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (Auth::id() != $id) {
+            return redirect()->back()->with('error', 'Acesso negado.');
+        }
+
         $usuario = Usuario::findOrFail($id);
 
         $request->validate([
             'nome' => 'required|string|max:100',
             'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
             'genero' => 'required',
-            'cpf' => 'required|string|max:11|unique:usuarios,cpf,' . $usuario->id,
+            'cpf' => 'required|string|max:14|unique:usuarios,cpf,' . $usuario->id,
             'data_de_nascimento' => 'required|date',
-            'telefone' => 'required|string|max:11',
+            'telefone' => 'required|string|max:20',
             'endereco' => 'required|string|max:200',
+            'password' => 'nullable|string|min:6|confirmed',
         ]);
 
-        $dados = $request->all();
+        $dados = $request->except('password', 'password_confirmation');
 
         if ($request->filled('password')) {
             $dados['password'] = Hash::make($request->password);
-        } else {
-            unset($dados['password']);
         }
 
         $usuario->update($dados);
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
+        return redirect()->back()->with('success', 'Perfil atualizado com sucesso!');
     }
 
 
@@ -111,9 +115,22 @@ class UsuarioController extends Controller
      */
     public function destroy(string $id)
     {
+        if (Auth::id() != $id) {
+            return redirect()->back()->with('error', 'Acesso negado.');
+        }
+
         $usuario = Usuario::findOrFail($id);
+
+        // deloga quando esta apagando
+        Auth::logout();
+
         $usuario->delete();
 
-        return redirect()->route('usuarios.index')->with('success', 'usuario excluido com sucesso!');
+
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+
+        return redirect()->route('home')->with('success', 'Sua conta foi excluída com sucesso.');
     }
 }
