@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\InstituicaoLoginController;
 use App\Http\Controllers\DoacaoRecebidaController;
 use App\Http\Controllers\AreaDoUsuarioController;
 use App\Http\Controllers\AreaDaIntituicaoController;
+use App\Http\Controllers\PedidoDeDoacaoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,14 @@ Route::middleware(['auth.ambos'])->group(function () {
     Route::get('/area-do-usuario/perfilUsuario', [AreaDoUsuarioController::class, 'perfilUsuario'])->name('areaDoUsuario.perfilUsuario');
 });
 
+Route::get('/pedido', [PedidoDeDoacaoController::class, 'index'])->name('areaDoUsuario.solicitarDoacao');
+Route::get('/pedido/create', [PedidoDeDoacaoController::class, 'create'])->name('estoque.create');
+Route::post('/pedido', [PedidoDeDoacaoController::class, 'store'])->name('pedido.store');
+Route::get('/pedido/{id}', [PedidoDeDoacaoController::class, 'show'])->name('estoque.show');
+Route::get('/pedido/{id}/edit', [PedidoDeDoacaoController::class, 'edit'])->name('estoque.edit');
+Route::put('/pedido/{id}', [PedidoDeDoacaoController::class, 'update'])->name('estoque.update');
+Route::delete('/pedido/{id}', [PedidoDeDoacaoController::class, 'destroy'])->name('estoque.destroy');
+
 
 // ==========================
 // rotas para instituições
@@ -66,7 +75,7 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::get('/area-da-instituicao', [AreaDaIntituicaoController::class, 'index'])->name('areaDaInstituicao.index');
     Route::get('/area-da-instituicao/estoque', [AreaDaIntituicaoController::class, 'estoque'])->name('areaDaInstituicao.estoque');
     Route::get('/area-da-instituicao/pedidos-de-doacao', [AreaDaIntituicaoController::class, 'pedidosDeDoacao'])->name('areaDaInstituicao.pedidosDeDoacao');
-
+    Route::get('/area-da-instituicao/ponto-de-coleta', [AreaDaIntituicaoController::class, 'pontoDeColeta'])->name('areaDaInstituicao.pontoDeColeta');
     Route::get('/area-da-instituicao/perfil', [AreaDaIntituicaoController::class, 'perfilInstituicao'])->name('areaDaInstituicao.perfilInstituicao');
     Route::get('/area-da-instituicao/material', [AreaDaIntituicaoController::class, 'material'])->name('areaDaInstituicao.material');
 
