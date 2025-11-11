@@ -152,7 +152,7 @@
         <nav id="sidebar">
             <ul class="nav flex-column p-2 pt-3">
                 <li class="nav-item">
-                    <a href="{{ route('areaDoUsuario.dashboard') }}" class="nav-link">
+                    <a href="{{ route('areaDoUsuario.index') }}" class="nav-link">
                         <i class="bi bi-grid-fill"></i>
                         <span class="sidebar-text">Dashboard</span>
                     </a>
