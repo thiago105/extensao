@@ -32,8 +32,5 @@ class Usuario extends Authenticatable
         return $this->hasMany(Instituicao::class);
     }
 
-    public function materiais_coletados()
-    {
-        return $this->hasMany(Materiais_coletado::class);
-    }
+    
 }

@@ -22,14 +22,14 @@ class Instituicao extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
 
 
-    public function estoque()
+    public function estoque_instituicao()
     {
-        return $this->hasMany(Estoque::class);
+        return $this->hasMany(Estoque_instituicao::class);
     }
 
-    public function mateirais_coletado()
+    public function entrega()
     {
-        return $this->hasMany(Mateirais_coletado::class);
+        return $this->hasMany(Entrega::class);
     }
 
     public function ponto_de_coleta()

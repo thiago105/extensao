@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('itens_doacao', function (Blueprint $table) {
+        Schema::create('material_doacao_recebida', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_doacao');
-            $table->unsignedBigInteger('id_mateirais_coletados');
+            $table->unsignedBigInteger('material_id');
+            $table->unsignedBigInteger('doacao_recebida_id');
+            $table->string('estado', 100);
             $table->integer('quantidade');
             $table->timestamps();
     
-            $table->foreign('id_doacao')->references('id')->on('doacaos')->onDelete('cascade');
-            $table->foreign('id_mateirais_coletados')->references('id')->on('mateirais_coletados')->onDelete('cascade');
+            $table->foreign('doacao_recebida_id')->references('id')->on('doacao_recebida')->onDelete('cascade');
+            $table->foreign('material_id')->references('id')->on('material')->onDelete('cascade');
         });
     }
     

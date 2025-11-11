@@ -6,13 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ponto_de_coleta extends Model
 {
+
+    protected $table = 'ponto_de_coletas';
+
+    protected $fillable = [
+        'id_instituicao',
+        'endereco',
+        'data_inicio',
+        'data_fim',
+    ];
+
+    protected $casts = [
+        'data_inicio' => 'datetime',
+        'data_fim' => 'datetime',
+    ];
+
     public function instituicoes()
     {
-        return $this->hasMany(Instituicao::class);
+        return $this->belongsTo(Instituicao::class, 'id_instituicao', 'id');
     }
 
-    public function materiais()
+    public function doacoes()
     {
-        return $this->hasMany(Materiais::class);
+
+        return $this->hasMany(Doacao_recebida::class, 'ponto_de_coleta_id', 'id');
     }
 }

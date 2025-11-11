@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_doados', function (Blueprint $table) {
+        Schema::create('pedido_de_doacao', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_materiais_coletado');
-            $table->timestamp('data_doacao');
+            $table->unsignedBigInteger('usuario_id');
+            $table->text('observacao');
+            $table->text('endereco');
+            $table->boolean('concluido')->default(false);
             $table->timestamps();
 
-            $table->foreign('id_materiais_coletado')
-            ->references('id')
-            ->on('mateirais_coletados')
-            ->onDelete('cascade');
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('item_doados');
+        Schema::dropIfExists('pedido_de_doacao');
     }
 };

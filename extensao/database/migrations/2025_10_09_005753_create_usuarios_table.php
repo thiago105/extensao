@@ -21,8 +21,6 @@ return new class extends Migration {
             $table->string('endereco', 200);
             $table->date('data_de_nascimento');
             $table->timestamps();
-            $table->integer('qntd_recebida')->default(0);
-            $table->integer('qntd_doada')->default(0);
         });
     }
 

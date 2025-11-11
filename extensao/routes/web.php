@@ -3,13 +3,13 @@
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\Mateirais_coletadoController;
-use App\Http\Controllers\EstoqueController;
+use App\Http\Controllers\EstoqueInstituicaoController;
 use App\Http\Controllers\Item_doadoController;
 use App\Http\Controllers\Ponto_de_coletaController;
-use App\Http\Controllers\MateriaisController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\InstituicaoLoginController;
-use App\Http\Controllers\DoacaoController;
+use App\Http\Controllers\DoacaoRecebidaController;
 use App\Http\Controllers\AreaDoUsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -49,28 +49,19 @@ Route::middleware(['auth.ambos'])->group(function () {
     // Area do usuário
     Route::get('/area-do-usuario', [AreaDoUsuarioController::class, 'index'])->name('areaDoUsuario.index');
     Route::get('/area-do-usuario/solicitar-doacao', [AreaDoUsuarioController::class, 'solicitarDoacao'])->name('areaDoUsuario.solicitarDoacao');
-    Route::get('/area-do-usuario/ponto-de-coleta', [AreaDoUsuarioController::class,'pontoDeColeta'])->name('areaDoUsuario.pontoDeColeta');
+    Route::get('/area-do-usuario/ponto-de-coleta', [AreaDoUsuarioController::class, 'pontoDeColeta'])->name('areaDoUsuario.pontoDeColeta');
     Route::get('/area-do-usuario/dashboard', [AreaDoUsuarioController::class, 'dashboard'])->name('areaDoUsuario.dashboard');
     Route::get('/area-do-usuario/pedidos', [AreaDoUsuarioController::class, 'pedidos'])->name('areaDoUsuario.pedidos');
     Route::get('/area-do-usuario/perfilUsuario', [AreaDoUsuarioController::class, 'perfilUsuario'])->name('areaDoUsuario.perfilUsuario');
 
-    // Itens doados
-    Route::get('/itemDoado', [Item_doadoController::class, 'index'])->name('itemDoado.index');
-    Route::get('/itemDoado/create', [Item_doadoController::class, 'create'])->name('itemDoado.create');
-    Route::post('/itemDoado', [Item_doadoController::class, 'store'])->name('itemDoado.store');
-    Route::get('/itemDoado/{id}', [Item_doadoController::class, 'show'])->name('itemDoado.show');
-    Route::get('/itemDoado/{id}/edit', [Item_doadoController::class, 'edit'])->name('itemDoado.edit');
-    Route::put('/itemDoado/{id}', [Item_doadoController::class, 'update'])->name('itemDoado.update');
-    Route::delete('/itemDoado/{id}', [Item_doadoController::class, 'destroy'])->name('itemDoado.destroy');
-
     // Materiais
-    Route::get('/materiais', [MateriaisController::class, 'index'])->name('materiais.index');
-    Route::get('/materiais/create', [MateriaisController::class, 'create'])->name('materiais.create');
-    Route::post('/materiais', [MateriaisController::class, 'store'])->name('materiais.store');
-    Route::get('/materiais/{id}', [MateriaisController::class, 'show'])->name('materiais.show');
-    Route::get('/materiais/{id}/edit', [MateriaisController::class, 'edit'])->name('materiais.edit');
-    Route::put('/materiais/{id}', [MateriaisController::class, 'update'])->name('materiais.update');
-    Route::delete('/materiais/{id}', [MateriaisController::class, 'destroy'])->name('materiais.destroy');
+    Route::get('/materiais', [MaterialController::class, 'index'])->name('materiais.index');
+    Route::get('/materiais/create', [MaterialController::class, 'create'])->name('materiais.create');
+    Route::post('/materiais', [MaterialController::class, 'store'])->name('materiais.store');
+    Route::get('/materiais/{id}', [MaterialController::class, 'show'])->name('materiais.show');
+    Route::get('/materiais/{id}/edit', [MaterialController::class, 'edit'])->name('materiais.edit');
+    Route::put('/materiais/{id}', [MaterialController::class, 'update'])->name('materiais.update');
+    Route::delete('/materiais/{id}', [MaterialController::class, 'destroy'])->name('materiais.destroy');
 });
 
 
@@ -86,31 +77,22 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::delete('/instituicao/{id}', [InstituicaoController::class, 'destroy'])->name('instituicao.destroy');
 
     // Estoque
-    Route::get('/estoque', [EstoqueController::class, 'index'])->name('estoque.index');
-    Route::get('/estoque/create', [EstoqueController::class, 'create'])->name('estoque.create');
-    Route::post('/estoque', [EstoqueController::class, 'store'])->name('estoque.store');
-    Route::get('/estoque/{id}', [EstoqueController::class, 'show'])->name('estoque.show');
-    Route::get('/estoque/{id}/edit', [EstoqueController::class, 'edit'])->name('estoque.edit');
-    Route::put('/estoque/{id}', [EstoqueController::class, 'update'])->name('estoque.update');
-    Route::delete('/estoque/{id}', [EstoqueController::class, 'destroy'])->name('estoque.destroy');
+    Route::get('/estoque', [EstoqueInstituicaoController::class, 'index'])->name('estoque.index');
+    Route::get('/estoque/create', [EstoqueInstituicaoController::class, 'create'])->name('estoque.create');
+    Route::post('/estoque', [EstoqueInstituicaoController::class, 'store'])->name('estoque.store');
+    Route::get('/estoque/{id}', [EstoqueInstituicaoController::class, 'show'])->name('estoque.show');
+    Route::get('/estoque/{id}/edit', [EstoqueInstituicaoController::class, 'edit'])->name('estoque.edit');
+    Route::put('/estoque/{id}', [EstoqueInstituicaoController::class, 'update'])->name('estoque.update');
+    Route::delete('/estoque/{id}', [EstoqueInstituicaoController::class, 'destroy'])->name('estoque.destroy');
 
     // Doações
-    Route::get('/doacoes', [DoacaoController::class, 'index'])->name('doacoes.index');
-    Route::get('/doacoes/create', [DoacaoController::class, 'create'])->name('doacoes.create');
-    Route::post('/doacoes', [DoacaoController::class, 'store'])->name('doacoes.store');
-    Route::get('/doacoes/{id}', [DoacaoController::class, 'show'])->name('doacoes.show');
-    Route::get('/doacoes/{id}/edit', [DoacaoController::class, 'edit'])->name('doacoes.edit');
-    Route::put('/doacoes/{id}', [DoacaoController::class, 'update'])->name('doacoes.update');
-    Route::delete('/doacoes/{id}', [DoacaoController::class, 'destroy'])->name('doacoes.destroy');
-
-    // Materiais coletados
-    Route::get('/materiaisColetado', [Mateirais_coletadoController::class, 'index'])->name('mateirais_coletado.index');
-    Route::get('/materiaisColetado/create', [Mateirais_coletadoController::class, 'create'])->name('mateirais_coletado.create');
-    Route::post('/materiaisColetado', [Mateirais_coletadoController::class, 'store'])->name('mateirais_coletado.store');
-    Route::get('/materiaisColetado/{id}', [Mateirais_coletadoController::class, 'show'])->name('mateirais_coletado.show');
-    Route::get('/materiaisColetado/{id}/edit', [Mateirais_coletadoController::class, 'edit'])->name('mateirais_coletado.edit');
-    Route::put('/materiaisColetado/{id}', [Mateirais_coletadoController::class, 'update'])->name('mateirais_coletado.update');
-    Route::delete('/materiaisColetado/{id}', [Mateirais_coletadoController::class, 'destroy'])->name('mateirais_coletado.destroy');
+    Route::get('/doacoes', [DoacaoRecebidaController::class, 'index'])->name('doacoes.index');
+    Route::get('/doacoes/create', [DoacaoRecebidaController::class, 'create'])->name('doacoes.create');
+    Route::post('/doacoes', [DoacaoRecebidaController::class, 'store'])->name('doacoes.store');
+    Route::get('/doacoes/{id}', [DoacaoRecebidaController::class, 'show'])->name('doacoes.show');
+    Route::get('/doacoes/{id}/edit', [DoacaoRecebidaController::class, 'edit'])->name('doacoes.edit');
+    Route::put('/doacoes/{id}', [DoacaoRecebidaController::class, 'update'])->name('doacoes.update');
+    Route::delete('/doacoes/{id}', [DoacaoRecebidaController::class, 'destroy'])->name('doacoes.destroy');
 
     // Pontos de coleta
     Route::get('/pontoColeta', [Ponto_de_coletaController::class, 'index'])->name('pontoColeta.index');

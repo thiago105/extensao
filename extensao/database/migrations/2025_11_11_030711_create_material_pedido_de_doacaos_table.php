@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mateirais_coletados', function (Blueprint $table) {
+        Schema::create('material_pedido_de_doacao', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_instituicao');
-            $table->string('material', 100);
-            $table->string('condicao');
+            $table->unsignedBigInteger('material_id');
+            $table->unsignedBigInteger('pedido_de_doacao_id');
             $table->integer('quantidade');
             $table->timestamps();
 
-            $table->foreign('id_instituicao')
-                  ->references('id')
-                  ->on('instituicaos')
-                  ->onDelete('cascade');
+            $table->foreign('material_id')->references('id')->on('material');
+            $table->foreign('pedido_de_doacao_id')->references('id')->on('pedido_de_doacao');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mateirais_coletados');
+        Schema::dropIfExists('material_pedido_de_doacao');
     }
 };
