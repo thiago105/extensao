@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AreaDaIntituicaoController extends Controller
 {
@@ -23,7 +24,9 @@ class AreaDaIntituicaoController extends Controller
     }  
     
     public function perfilInstituicao(){
-        return view("areaDaInstituicao.perfilInstituicao");
+        $instituicao = Auth::guard('instituicao')->user();
+        
+        return view("areaDaInstituicao.perfilInstituicao", compact('instituicao'));
     } 
 
     // public function perfil(){
