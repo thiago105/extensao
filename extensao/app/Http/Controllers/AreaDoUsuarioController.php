@@ -13,4 +13,6 @@ class AreaDoUsuarioController extends Controller
     public function solicitarDoacao(){
         return view("areaDoUsuario.solicitarDoacao");
     }
+
+    
 }
