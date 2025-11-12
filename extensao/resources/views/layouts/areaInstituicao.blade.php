@@ -168,12 +168,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('areaDaInstituicao.estoque') }}" class="nav-link">
-                        <i class="bi bi-balloon-heart"></i>
-                        <span class="sidebar-text">Estoque</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{ route('areaDaInstituicao.pontoDeColeta.index') }}" class="nav-link">
                         <i class="bi bi-geo"></i>
                         <span class="sidebar-text">Gerenciar Pontos de Coleta</span>

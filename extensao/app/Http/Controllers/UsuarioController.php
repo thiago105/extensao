@@ -9,76 +9,59 @@ use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $usuarios = Usuario::all();
         return view('usuario.index', compact('usuarios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('usuario.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // Validação dos campos obrigatórios
         $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:usuarios,email',
             'genero' => 'required|string',
             'cpf' => 'required|string|max:14|unique:usuarios,cpf',
             'data_de_nascimento' => 'required|date',
-            'telefone' => 'required|string|max:20',
+            'telefone' => 'required|string|max:20|unique:usuarios,telefone',
             'endereco' => 'required|string|max:255',
             'senha' => 'required|string|min:6',
+        ], [
+            'telefone.unique' => 'Este telefone já está cadastrado',
+            'email.unique' => 'Este e-mail já está cadastrado.',
+            'cpf.unique' => 'Este CPF já está cadastrado.',
         ]);
 
-        // Criação do registro
-        $usuario = new Usuario();
-        $usuario->nome = $request->nome;
-        $usuario->email = $request->email;
-        $usuario->genero = $request->genero;
-        $usuario->cpf = $request->cpf;
-        $usuario->data_de_nascimento = $request->data_de_nascimento;
-        $usuario->telefone = $request->telefone;
-        $usuario->endereco = $request->endereco;
-        $usuario->password = Hash::make($request->senha);
-        $usuario->save();
+        Usuario::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'genero' => $request->genero,
+            'cpf' => $request->cpf,
+            'data_de_nascimento' => $request->data_de_nascimento,
+            'telefone' => $request->telefone,
+            'endereco' => $request->endereco,
+            'password' => Hash::make($request->senha),
+        ]);
 
-        // Redirecionamento com mensagem
         return redirect()->route('home')->with('success', 'Estudante cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $usuario = Usuario::findOrFail($id);
         return view('usuario.edit', compact('usuario'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         if (Auth::id() != $id) {
@@ -93,9 +76,13 @@ class UsuarioController extends Controller
             'genero' => 'required',
             'cpf' => 'required|string|max:14|unique:usuarios,cpf,' . $usuario->id,
             'data_de_nascimento' => 'required|date',
-            'telefone' => 'required|string|max:20',
+            'telefone' => 'required|string|max:20|unique:usuarios,telefone,' . $usuario->id,
             'endereco' => 'required|string|max:200',
             'password' => 'nullable|string|min:6|confirmed',
+        ], [
+            'email.unique' => 'Este e-mail já está em uso.',
+            'cpf.unique' => 'Este CPF já está cadastrado.',
+            'telefone.unique' => 'Este telefone já está cadastrado.',
         ]);
 
         $dados = $request->except('password', 'password_confirmation');
@@ -109,10 +96,6 @@ class UsuarioController extends Controller
         return redirect()->back()->with('success', 'Perfil atualizado com sucesso!');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         if (Auth::id() != $id) {
@@ -121,15 +104,11 @@ class UsuarioController extends Controller
 
         $usuario = Usuario::findOrFail($id);
 
-        // deloga quando esta apagando
         Auth::logout();
-
         $usuario->delete();
-
 
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-
 
         return redirect()->route('home')->with('success', 'Sua conta foi excluída com sucesso.');
     }

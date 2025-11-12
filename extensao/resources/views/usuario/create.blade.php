@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Usuário - Traços de Esperança</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -18,7 +21,7 @@
             background: #fff;
             border-radius: 16px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            padding: 40px;
+            padding: 40px 30px;
             animation: fadeInUp 0.6s ease;
         }
 
@@ -76,68 +79,100 @@
 </head>
 
 <body>
-    <div class="container mt-5 mb-5">
+    <div class="container mt-4 mb-5">
         <h2>Cadastro de Estudante</h2>
 
-        <form action="{{ route('usuarios.store') }}" method="POST">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+        <form action="{{ route('usuarios.store') }}" method="POST" class="needs-validation" novalidate>
             @csrf
 
-            <div class="mb-3">
-                <label class="form-label">Nome</label>
-                <input type="text" name="nome" class="form-control" required>
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome" class="form-control" maxlength="100" required>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" maxlength="100" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Gênero</label>
+                    <select name="genero" class="form-select" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">CPF</label>
+                    <input type="text" name="cpf" id="cpf" class="form-control" maxlength="14" required placeholder="000.000.000-00">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Data de Nascimento</label>
+                    <input type="date" name="data_de_nascimento" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Telefone</label>
+                    <input type="text" name="telefone" id="telefone" class="form-control" maxlength="15" required placeholder="(00) 00000-0000">
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Endereço</label>
+                    <input type="text" name="endereco" class="form-control" maxlength="150" required>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Senha</label>
+                    <input type="password" name="senha" class="form-control" minlength="6" maxlength="20" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Gênero</label>
-                <select name="genero" class="form-select" required>
-                    <option value="">-- Selecione --</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                    <option value="outro">Outro</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">CPF</label>
-                <input type="text" name="cpf" class="form-control" required maxlength="14">
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Data de Nascimento</label>
-                <input type="date" name="data_de_nascimento" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Telefone</label>
-                <input type="text" name="telefone" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Endereço</label>
-                <input type="text" name="endereco" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Senha</label>
-                <input type="password" name="senha" class="form-control" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100 mt-3">
+            <button type="submit" class="btn btn-primary w-100 mt-4">
                 Cadastrar Estudante
             </button>
-
 
             <a href="{{ route('login.usuario') }}" class="btn btn-secondary w-100 mt-3 text-white text-decoration-none">
                 Logar-se
             </a>
-
         </form>
     </div>
+
+    <!-- Scripts Bootstrap e IMask -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/imask"></script>
+
+    <script>
+        // Máscara de CPF
+        IMask(document.getElementById('cpf'), {
+            mask: '00000000000'
+        });
+
+        // Máscara de telefone
+        IMask(document.getElementById('telefone'), {
+            mask: [{
+                    mask: '0000000000'
+                },
+                {
+                    mask: '00000000000'
+                }
+            ]
+        });
+    </script>
 </body>
 
 </html>
