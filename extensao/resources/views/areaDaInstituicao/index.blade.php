@@ -2,23 +2,68 @@
 
 @section('content')
 <style>
-    /* 
-    --cor-primaria: #005F73;
-    --cor-secundaria: #E29578;
-    --cor-terciaria: #94D2BD;
-    --cor-branco: #F5F5F5;
-    --cor-preto: #0B0C10;
-    --cor-erro-falha: #D62828;
-    --cor-sucesso: #2D6A4F;
-    --cor-header: #404040;
-    --cor-sidebar: #555555;
-    --cor-body: #F8F8F8;
-    --sidebar-expanded: 240px;
-    --sidebar-collapsed: 70px;
-    --cor-body-bg: var(--cor-body); 
-    */
+    .dashboard-container {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .card-dashboard {
+        flex: 1 1 300px;
+        max-width: 450px;
+        height: 250px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card-dashboard:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-doados {
+        background-color: #ffc9c9;
+    }
+
+    .card-recebidos {
+        background-color: #b7f7c5;
+    }
+
+    h1 {
+        text-align: left;
+        font-size: 2rem;
+        color: var(--cor-preto);
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 </style>
 
 <h1>Dashboard</h1>
 
+<div class="dashboard-container">
+    <div class="card-dashboard card-doados">
+    Quantidade Doação feitas:
+        <span class="ms-2 text-dark fw-bold">{{ $itensDoados ?? 0 }}</span>
+    </div>
+
+    <div class="card-dashboard card-recebidos">
+    Quantidade Doação Recebidos:
+        <span class="ms-2 text-dark fw-bold">{{ $itensRecebidos ?? 0 }}</span>
+    </div>
+</div>
 @endsection

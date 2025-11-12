@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estoque_instituicao;
-use App\Models\Pedido_de_doacao;
+use App\Models\Material_doacao_recebida;
+use App\Models\Material_pedido_de_doacao;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AreaDaIntituicaoController extends Controller
 {
-    public function index()
-    {
-        return view("areaDaInstituicao.index");
+    public function index(){
+        {
+            $itensDoados = Material_doacao_recebida::sum('quantidade');
+            $itensRecebidos = Material_pedido_de_doacao::sum('quantidade');
+    
+            return view('areaDaInstituicao.index', compact('itensDoados', 'itensRecebidos'));
+        }
     }
 
     public function estoque()
@@ -25,40 +31,28 @@ class AreaDaIntituicaoController extends Controller
         return view('areaDaInstituicao.estoque', compact('estoques'));
     }
 
-    public function pedidosDeDoacao()
-    {
-        $pedidosPendentes = Pedido_de_doacao::where('concluido', false)->get();
-        $pedidosConcluidos = Pedido_de_doacao::where('concluido', true)->get();
+    public function pedidosDeDoacao(){
+        return view("areaDaInstituicao.pedidosDeDoacao");
+    }    
 
-        $pedidosEmAndamento = collect();
-
-        return view('areaDaInstituicao.pedidosDeDoacao', compact(
-            'pedidosPendentes',
-            'pedidosEmAndamento',
-            'pedidosConcluidos'
-        ));
-    }
-
-    public function pontoDeColeta()
-    {
+    public function pontoDeColeta(){
         return view("areaDaInstituicao.pontoDeColeta");
-    }
-
-    public function perfilInstituicao()
-    {
+    }  
+    
+    public function perfilInstituicao(){
         $instituicao = Auth::guard('instituicao')->user();
-
+        
         return view("areaDaInstituicao.perfilInstituicao", compact('instituicao'));
-    }
+    } 
 
     public function material()
-    {
-        // busca os materiais cadastrados no banco
-        $materiais = \App\Models\Material::all();
+{
+    // busca os materiais cadastrados no banco
+    $materiais = \App\Models\Material::all();
 
-        // retorna a view que lista/cadastra materiais
-        return view('areaDaInstituicao.material', compact('materiais'));
-    }
+    // retorna a view que lista/cadastra materiais
+    return view('areaDaInstituicao.material', compact('materiais'));
+}
 
 
     // public function perfil(){

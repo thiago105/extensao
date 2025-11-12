@@ -9,7 +9,7 @@ class Doacao_recebida extends Model
 {
     use HasFactory;
 
-    protected $table = 'doacaos'; // ou o nome que estiver na sua migration
+    protected $table = 'doacao_recebida'; // ou o nome que estiver na sua migration
     protected $fillable = [
         'usuario_id',
         'ponto_de_coletas_id'
