@@ -53,11 +53,6 @@
     .action-buttons a {
         display: inline-block;
     }
-
-    /* REMOVIDO: .card-ativos, .card-finalizados, 
-      .card-header-custom e .table 
-      para usar o padrão do Bootstrap.
-    */
 </style>
 
 <div class="container-fluid">
@@ -114,10 +109,30 @@
                                         <i class="bi bi-pencil-fill"></i> Editar
                                     </a>
                                     
-                                    <form action="{{ route('areaDaInstituicao.pontoDeColeta.destroy', $ponto->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este ponto?');">
+                                    {{-- 
+                                        MUDANÇA 1: 
+                                        - Adicionado ID ao formulário.
+                                        - Removido o 'onsubmit'.
+                                    --}}
+                                    <form id="form-excluir-{{ $ponto->id }}" action="{{ route('areaDaInstituicao.pontoDeColeta.destroy', $ponto->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-excluir-ponto btn-sm" title="Excluir">
+                                        
+                                        {{-- 
+                                            MUDANÇA 2: 
+                                            - Trocado 'type="submit"' para 'type="button"'.
+                                            - Adicionadas classes e atributos 'data-*' para controlar o modal.
+                                        --}}
+                                        <button type="button" 
+                                                class="btn btn-excluir-ponto btn-sm" 
+                                                title="Excluir"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#confirmationModal"
+                                                data-modal-title="Confirmar Exclusão"
+                                                data-modal-body="Tem certeza que deseja excluir este ponto de coleta? Esta ação não pode ser desfeita."
+                                                data-modal-button-text="Sim, excluir ponto"
+                                                data-modal-button-class="btn-excluir-ponto"
+                                                data-form-target="#form-excluir-{{ $ponto->id }}">
                                             <i class="bi bi-trash-fill"></i> Excluir
                                         </button>
                                     </form>
@@ -176,5 +191,69 @@
         </div>
     </div>
 
+</div> {{-- 
+    MUDANÇA 3: HTML DO MODAL
+    - Adicionado o HTML para o modal de confirmação genérico.
+--}}
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmar Ação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Você tem certeza que deseja realizar esta ação?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn" id="btn-confirm-modal-action">Confirmar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+{{-- 
+    MUDANÇA 4: JAVASCRIPT
+    - Adicionado script para lidar com a lógica do modal.
+--}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        const confirmationModal = document.getElementById('confirmationModal');
+        let formToSubmit = null; 
+
+        const confirmButton = document.getElementById('btn-confirm-modal-action');
+
+        confirmationModal.addEventListener('show.bs.modal', function (event) {
+            
+            const button = event.relatedTarget; 
+
+            const modalTitle = button.dataset.modalTitle;
+            const modalBody = button.dataset.modalBody;
+            const modalButtonText = button.dataset.modalButtonText;
+            const modalButtonClass = button.dataset.modalButtonClass;
+            
+            const formTargetSelector = button.dataset.formTarget;
+            formToSubmit = document.querySelector(formTargetSelector);
+
+            confirmationModal.querySelector('.modal-title').textContent = modalTitle;
+            confirmationModal.querySelector('.modal-body').textContent = modalBody;
+            
+            confirmButton.textContent = modalButtonText;
+            
+            confirmButton.className = 'btn'; 
+            confirmButton.classList.add(modalButtonClass); 
+        });
+
+        confirmButton.addEventListener('click', function () {
+            if (formToSubmit) {
+                formToSubmit.submit();
+            }
+        });
+
+    });
+</script>
+
 @endsection

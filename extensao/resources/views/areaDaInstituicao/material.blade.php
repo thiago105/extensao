@@ -44,7 +44,6 @@
                         <table class="table align-middle mb-0">
                             <thead>
                                 <tr>
-
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th class="text-center" style="width: 180px;">Ações</th>
@@ -61,11 +60,30 @@
                                         <a href="{{ route('material.edit', $material->id) }}" class="btn btn-primary btn-sm">
                                             Editar
                                         </a>
-                                        <form action="{{ route('material.destroy', $material->id) }}" method="POST" class="d-inline">
+
+                                        {{-- 
+                                            MUDANÇA 1: 
+                                            - Adicionado ID ao formulário.
+                                        --}}
+                                        <form id="form-excluir-{{ $material->id }}" action="{{ route('material.destroy', $material->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Deseja realmente excluir este material?')">
+                                            
+                                            {{-- 
+                                                MUDANÇA 2: 
+                                                - Trocado 'type="submit"' para 'type="button"'.
+                                                - Removido 'onclick'.
+                                                - Adicionadas classes e atributos 'data-*' para controlar o modal.
+                                            --}}
+                                            <button type="button" 
+                                                    class="btn btn-danger btn-sm"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#confirmationModal"
+                                                    data-modal-title="Confirmar Exclusão"
+                                                    data-modal-body="Deseja realmente excluir este material? Esta ação não pode ser desfeita."
+                                                    data-modal-button-text="Sim, excluir material"
+                                                    data-modal-button-class="btn-danger"
+                                                    data-form-target="#form-excluir-{{ $material->id }}">
                                                 Excluir
                                             </button>
                                         </form>
@@ -83,5 +101,69 @@
             </div>
         </div>
     </div>
+</div> {{-- 
+    MUDANÇA 3: HTML DO MODAL
+    - Adicionado o HTML para o modal de confirmação genérico.
+--}}
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmar Ação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Você tem certeza que deseja realizar esta ação?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn" id="btn-confirm-modal-action">Confirmar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+{{-- 
+    MUDANÇA 4: JAVASCRIPT
+    - Adicionado script para lidar com a lógica do modal.
+--}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        const confirmationModal = document.getElementById('confirmationModal');
+        let formToSubmit = null; 
+
+        const confirmButton = document.getElementById('btn-confirm-modal-action');
+
+        confirmationModal.addEventListener('show.bs.modal', function (event) {
+            
+            const button = event.relatedTarget; 
+
+            const modalTitle = button.dataset.modalTitle;
+            const modalBody = button.dataset.modalBody;
+            const modalButtonText = button.dataset.modalButtonText;
+            const modalButtonClass = button.dataset.modalButtonClass;
+            
+            const formTargetSelector = button.dataset.formTarget;
+            formToSubmit = document.querySelector(formTargetSelector);
+
+            confirmationModal.querySelector('.modal-title').textContent = modalTitle;
+            confirmationModal.querySelector('.modal-body').textContent = modalBody;
+            
+            confirmButton.textContent = modalButtonText;
+            
+            confirmButton.className = 'btn'; 
+            confirmButton.classList.add(modalButtonClass); 
+        });
+
+        confirmButton.addEventListener('click', function () {
+            if (formToSubmit) {
+                formToSubmit.submit();
+            }
+        });
+
+    });
+</script>
+
 @endsection
