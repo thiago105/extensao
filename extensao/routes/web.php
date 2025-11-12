@@ -64,16 +64,16 @@ Route::middleware(['auth.ambos'])->group(function () {
     Route::get('/area-do-usuario/perfilUsuario', [AreaDoUsuarioController::class, 'perfilUsuario'])->name('areaDoUsuario.perfilUsuario');
 
     Route::get('/area-do-usuario/ponto-de-coleta', [PontoColetaUsuarioController::class, 'index'])
-     ->name('areaDoUsuario.pontoDeColeta');
+        ->name('areaDoUsuario.pontoDeColeta');
 });
 
 Route::get('/pedido', [PedidoDeDoacaoController::class, 'index'])->name('areaDoUsuario.solicitarDoacao');
-Route::get('/pedido/create', [PedidoDeDoacaoController::class, 'create'])->name('estoque.create');
+
 Route::post('/pedido', [PedidoDeDoacaoController::class, 'store'])->name('pedido.store');
-Route::get('/pedido/{id}', [PedidoDeDoacaoController::class, 'show'])->name('estoque.show');
-Route::get('/pedido/{id}/edit', [PedidoDeDoacaoController::class, 'edit'])->name('estoque.edit');
-Route::put('/pedido/{id}', [PedidoDeDoacaoController::class, 'update'])->name('estoque.update');
-Route::delete('/pedido/{id}', [PedidoDeDoacaoController::class, 'destroy'])->name('estoque.destroy');
+Route::get('/pedido/{id}', [PedidoDeDoacaoController::class, 'show'])->name('pedido.show');
+Route::get('/pedido/{id}/edit', [PedidoDeDoacaoController::class, 'edit'])->name('pedido.edit');
+Route::put('/pedido/{id}', [PedidoDeDoacaoController::class, 'update'])->name('pedido.update');
+Route::delete('/pedido/{id}', [PedidoDeDoacaoController::class, 'destroy'])->name('pedido.destroy');
 
 
 // ==========================
@@ -89,11 +89,12 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::delete('/pedido-de-doacao/{id}', [App\Http\Controllers\PedidoDeDoacaoController::class, 'destroy'])->name('pedidoDeDoacao.destroy');
     Route::patch('/pedido-de-doacao/{id}/reabrir', [App\Http\Controllers\PedidoDeDoacaoController::class, 'reabrir'])->name('pedidoDeDoacao.reabrir');
     Route::get('/area-da-instituicao/pedidos-de-doacao', [PedidoDeDoacaoController::class, 'indexInstituicao'])
-    ->name('areaDaInstituicao.pedidosDeDoacao');
+        ->name('areaDaInstituicao.pedidosDeDoacao');
 
     //areaDaInstituicao
     Route::get('/area-da-instituicao', [AreaDaIntituicaoController::class, 'index'])->name('areaDaInstituicao.index');
-    Route::get('/area-da-instituicao/estoque', [AreaDaIntituicaoController::class, 'estoque'])->name('areaDaInstituicao.estoque');
+    Route::get('/area-da-instituicao/estoque', [EstoqueInstituicaoController::class, 'estoque'])->name('areaDaInstituicao.estoque');
+    Route::post('/area-da-instituicao/estoque', [AreaDaIntituicaoController::class, 'estoque'])->name('estoqueInst.store'); // Cuidado: Rota duplicada/conflitante
     Route::get('/area-da-instituicao/pedidos-de-doacao', [AreaDaIntituicaoController::class, 'pedidosDeDoacao'])->name('areaDaInstituicao.pedidosDeDoacao');
     Route::get('/area-da-instituicao/ponto-de-coleta', [AreaDaIntituicaoController::class, 'pontoDeColeta'])->name('areaDaInstituicao.pontoDeColeta');
     Route::get('/area-da-instituicao/perfil', [AreaDaIntituicaoController::class, 'perfilInstituicao'])->name('areaDaInstituicao.perfilInstituicao');
@@ -112,6 +113,7 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::get('/estoque', [EstoqueInstituicaoController::class, 'index'])->name('estoque.index');
     Route::get('/estoque/create', [EstoqueInstituicaoController::class, 'create'])->name('estoque.create');
     Route::post('/estoque', [EstoqueInstituicaoController::class, 'store'])->name('estoque.store');
+
     Route::get('/estoque/{id}', [EstoqueInstituicaoController::class, 'show'])->name('estoque.show');
     Route::get('/estoque/{id}/edit', [EstoqueInstituicaoController::class, 'edit'])->name('estoque.edit');
     Route::put('/estoque/{id}', [EstoqueInstituicaoController::class, 'update'])->name('estoque.update');
@@ -164,5 +166,3 @@ Route::middleware('auth:instituicao')->group(function () {
 
 
 Auth::routes(['register' => false]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

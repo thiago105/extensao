@@ -5,39 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Instituicao;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class InstituicaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $instituicaos = Instituicao::all();
-        return view('instituicao.index', compact('instituicaos'));
+        $instituicoes = Instituicao::all();
+        return view('instituicao.index', compact('instituicoes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $usuarios = \App\Models\Usuario::all();
-        return view('instituicao.create', compact('usuarios'));
+        return view('instituicao.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:instituicaos,email',
             'password' => 'required|string|min:6',
-            'cnpj' => 'required|string|max:14|unique:instituicaos,cnpj',
+            'cnpj' => 'required|string|max:18|unique:instituicaos,cnpj',
             'endereco' => 'required|string|max:200',
+        ], [
+            'email.unique' => 'Este e-mail já está cadastrado.',
+            'cnpj.unique' => 'Este CNPJ já está cadastrado.',
         ]);
 
         Instituicao::create([
@@ -48,30 +40,16 @@ class InstituicaoController extends Controller
             'endereco' => $request->endereco,
         ]);
 
-        return redirect()->route('home')->with('success', 'Instituição cadastrada com sucesso!');
+        return redirect()->route('login.instituicao')->with('success', 'Instituição cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
         $instituicao = Instituicao::findOrFail($id);
         return view('instituicao.edit', compact('instituicao'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $instituicao = Instituicao::findOrFail($id);
 
@@ -79,30 +57,27 @@ class InstituicaoController extends Controller
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:instituicaos,email,' . $instituicao->id,
             'password' => 'nullable|string|min:6|confirmed',
-            'cnpj' => 'required|string|max:14|unique:instituicaos,cnpj,' . $instituicao->id,
+            'cnpj' => 'required|string|max:18|unique:instituicaos,cnpj,' . $instituicao->id,
             'endereco' => 'required|string|max:200',
+        ], [
+            'email.unique' => 'Este e-mail já está em uso.',
+            'cnpj.unique' => 'Este CNPJ já está em uso.',
         ]);
 
         $dados = $request->except(['password', 'password_confirmation']);
-
-        // Atualiza a senha apenas se o campo for preenchido
         if (!empty($request->password)) {
             $dados['password'] = bcrypt($request->password);
         }
 
         $instituicao->update($dados);
 
-        return redirect()->route('areaDaInstituicao.perfilInstituicao')->with('success', 'Salvo com sucesso!');
+        return redirect()->route('areaDaInstituicao.perfilInstituicao')->with('success', 'Dados atualizados com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $instituicao = Instituicao::findOrFail($id);
         $instituicao->delete();
-
         return redirect('/')->with('success', 'Conta excluída com sucesso!');
     }
 }

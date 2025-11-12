@@ -8,23 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Estoque_instituicao extends Model
 {
     use HasFactory;
-
     protected $table = 'estoque_instituicaos';
-
     protected $fillable = [
         'instituicao_id',
         'material_id',
         'quantidade'
     ];
-
     public function material()
     {
         return $this->belongsTo(Material::class, 'material_id');
     }
-
     public function instituicao()
     {
-        return $this->belongsTo(Instituicao::class, 'instituicaos_id');
+        return $this->belongsTo(Instituicao::class, 'instituicao_id');
     }
 }
-

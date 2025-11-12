@@ -82,6 +82,16 @@
     <div class="container mt-4 mb-5">
         <h2>Cadastro de Estudante</h2>
 
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <form action="{{ route('usuarios.store') }}" method="POST" class="needs-validation" novalidate>
             @csrf
 
@@ -154,9 +164,12 @@
 
         // Máscara de telefone
         IMask(document.getElementById('telefone'), {
-            mask: [
-                { mask: '0000000000' },
-                { mask: '00000000000' }
+            mask: [{
+                    mask: '0000000000'
+                },
+                {
+                    mask: '00000000000'
+                }
             ]
         });
     </script>
