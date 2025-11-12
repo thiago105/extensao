@@ -61,20 +61,10 @@
                                             Editar
                                         </a>
 
-                                        {{-- 
-                                            MUDANÇA 1: 
-                                            - Adicionado ID ao formulário.
-                                        --}}
                                         <form id="form-excluir-{{ $material->id }}" action="{{ route('material.destroy', $material->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             
-                                            {{-- 
-                                                MUDANÇA 2: 
-                                                - Trocado 'type="submit"' para 'type="button"'.
-                                                - Removido 'onclick'.
-                                                - Adicionadas classes e atributos 'data-*' para controlar o modal.
-                                            --}}
                                             <button type="button" 
                                                     class="btn btn-danger btn-sm"
                                                     data-bs-toggle="modal" 
@@ -101,10 +91,7 @@
             </div>
         </div>
     </div>
-</div> {{-- 
-    MUDANÇA 3: HTML DO MODAL
-    - Adicionado o HTML para o modal de confirmação genérico.
---}}
+</div> 
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -123,11 +110,6 @@
     </div>
 </div>
 
-
-{{-- 
-    MUDANÇA 4: JAVASCRIPT
-    - Adicionado script para lidar com a lógica do modal.
---}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         

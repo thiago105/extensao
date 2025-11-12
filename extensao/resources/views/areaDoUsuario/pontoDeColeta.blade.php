@@ -50,10 +50,6 @@
                         @forelse ($pontosDeColeta as $ponto)
                         <tr>
                             <td>
-                                <!-- 
-                                  CORREÇÃO AQUI: 
-                                  Alterado de $ponto->instituicao->nome para $ponto->instituicao->name 
-                                -->
                                 {{ $ponto->instituicao->name ?? 'Instituição não encontrada' }}
                             </td>
                             <td>{{ $ponto->endereco }}</td>

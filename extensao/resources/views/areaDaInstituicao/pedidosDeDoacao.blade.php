@@ -2,7 +2,6 @@
 
 @section('content')
 <style>
-    /* Estilos de botões (Mantidos do seu arquivo) */
     .btn-concluir-pedido {
         background-color: var(--cor-sucesso);
         color: var(--cor-branco);
@@ -44,7 +43,6 @@
         color: var(--cor-preto);
     }
 
-    /* Ações do Card Footer */
     .action-buttons form {
         display: inline-block;
         margin: 4px;
@@ -54,7 +52,6 @@
         margin: 4px;
     }
 
-    /* Estilo do card de pedido */
     .card-pedido {
         transition: all 0.2s ease-in-out;
     }
@@ -72,7 +69,6 @@
 
 <div class="container-fluid">
 
-    {{-- Alertas de Sessão --}}
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -84,7 +80,6 @@
         </div>
     @endif
 
-    {{-- Título --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">Gerenciar Pedidos de Doação</h1>
     </div>
@@ -231,7 +226,7 @@
         </div>
     </div>
 
-</div> {{-- HTML DO MODAL DE CONFIRMAÇÃO --}}
+</div>
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -250,8 +245,6 @@
     </div>
 </div>
 
-
-{{-- JAVASCRIPT PARA CONTROLAR O MODAL --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         

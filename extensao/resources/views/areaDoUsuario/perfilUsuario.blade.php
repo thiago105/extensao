@@ -55,8 +55,6 @@
                 </div>
                 <div class="card-body">
 
-                    {{-- Os Alertas foram removidos daqui --}}
-
                     <form action="{{ route('usuarios.update', $usuario->id) }}" method="POST">
                         @csrf
                         @method('PUT')

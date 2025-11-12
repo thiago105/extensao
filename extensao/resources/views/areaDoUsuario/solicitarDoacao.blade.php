@@ -33,7 +33,6 @@
         <div class="col-12 col-lg-10 mb-4">
             <div class="card shadow-sm">
                 <div class="card-header">
-                    {{-- Título do Card atualizado --}}
                     <h5 class="mb-0 card-title">Informações para Recebimento</h5>
                 </div>
                 <div class="card-body">
@@ -106,7 +105,6 @@
 
                         <div class="mt-4 pt-3 border-top">
                             <button type="submit" class="btn btn-primary">
-                                {{-- Texto do botão atualizado --}}
                                 Confirmar Pedido
                             </button>
                             <a href="{{ route('areaDoUsuario.index') }}" class="btn btn-secondary ms-2">

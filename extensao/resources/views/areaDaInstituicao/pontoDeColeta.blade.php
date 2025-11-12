@@ -2,8 +2,6 @@
 
 @section('content')
 <style>
-    /* Estilos dos botões (Mantidos conforme seu pedido) 
-    */
     .btn-novo-ponto {
         background-color: var(--cor-sucesso);
         color: var(--cor-branco);
@@ -45,7 +43,6 @@
         color: var(--cor-preto);
     }
 
-    /* Estilos de alinhamento dos botões (Mantidos) */
     .action-buttons form {
         display: inline-block;
         margin-left: 5px;
@@ -109,20 +106,10 @@
                                         <i class="bi bi-pencil-fill"></i> Editar
                                     </a>
                                     
-                                    {{-- 
-                                        MUDANÇA 1: 
-                                        - Adicionado ID ao formulário.
-                                        - Removido o 'onsubmit'.
-                                    --}}
                                     <form id="form-excluir-{{ $ponto->id }}" action="{{ route('areaDaInstituicao.pontoDeColeta.destroy', $ponto->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         
-                                        {{-- 
-                                            MUDANÇA 2: 
-                                            - Trocado 'type="submit"' para 'type="button"'.
-                                            - Adicionadas classes e atributos 'data-*' para controlar o modal.
-                                        --}}
                                         <button type="button" 
                                                 class="btn btn-excluir-ponto btn-sm" 
                                                 title="Excluir"
@@ -191,10 +178,7 @@
         </div>
     </div>
 
-</div> {{-- 
-    MUDANÇA 3: HTML DO MODAL
-    - Adicionado o HTML para o modal de confirmação genérico.
---}}
+</div> 
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -213,11 +197,6 @@
     </div>
 </div>
 
-
-{{-- 
-    MUDANÇA 4: JAVASCRIPT
-    - Adicionado script para lidar com a lógica do modal.
---}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         
