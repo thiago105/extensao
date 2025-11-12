@@ -21,7 +21,7 @@ class Ponto_de_coleta extends Model
         'data_fim' => 'datetime',
     ];
 
-    public function instituicoes()
+    public function instituicao()
     {
         return $this->belongsTo(Instituicao::class, 'id_instituicao', 'id');
     }

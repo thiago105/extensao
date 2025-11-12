@@ -13,6 +13,7 @@ use App\Http\Controllers\DoacaoRecebidaController;
 use App\Http\Controllers\AreaDoUsuarioController;
 use App\Http\Controllers\AreaDaIntituicaoController;
 use App\Http\Controllers\PedidoDeDoacaoController;
+use App\Http\Controllers\PontoColetaUsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,9 @@ Route::middleware(['auth.ambos'])->group(function () {
     Route::get('/area-do-usuario/dashboard', [AreaDoUsuarioController::class, 'dashboard'])->name('areaDoUsuario.dashboard');
     Route::get('/area-do-usuario/pedidos', [AreaDoUsuarioController::class, 'pedidos'])->name('areaDoUsuario.pedidos');
     Route::get('/area-do-usuario/perfilUsuario', [AreaDoUsuarioController::class, 'perfilUsuario'])->name('areaDoUsuario.perfilUsuario');
+
+    Route::get('/area-do-usuario/ponto-de-coleta', [PontoColetaUsuarioController::class, 'index'])
+     ->name('areaDoUsuario.pontoDeColeta');
 });
 
 Route::get('/pedido', [PedidoDeDoacaoController::class, 'index'])->name('areaDoUsuario.solicitarDoacao');
