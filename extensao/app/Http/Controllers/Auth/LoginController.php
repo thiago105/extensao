@@ -8,26 +8,31 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
-        return view('auth.login');
+        $tipo = $request->query('tipo', 'usuario'); // padrão = usuario
+        return view('auth.login', compact('tipo'));
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        $tipo = $request->input('tipo', 'usuario');
 
-        $userModel = \App\Models\Usuario::where('email', $credentials['email'])->first();
-        if (!$userModel) {
-            return back()->withErrors(['login_error' => 'E-mail ou senha incorretos.'])->withInput();
+        if ($tipo === 'usuario') {
+            if (Auth::guard('web')->attempt($credentials)) {
+                return redirect()->intended('/area-do-usuario');
+            }
         }
 
-        if (Auth::guard('web')->attempt($credentials)) {
-            return redirect()->intended('/home');
+        if ($tipo === 'instituicao') {
+            if (Auth::guard('instituicao')->attempt($credentials)) {
+                return redirect()->intended('/area-da-instituicao');
+            }
         }
 
         return back()->withErrors([
-            'login_error' => 'Senha ou e-mail incorretos.',
+            'login_error' => 'E-mail ou senha incorretos.'
         ])->withInput();
     }
 

@@ -23,7 +23,7 @@ class InstituicaoLoginController extends Controller
         }
 
         if (Auth::guard('instituicao')->attempt($credentials)) {
-            return redirect()->intended('/home');
+            return redirect()->intended('/area-da-instituicao');
         }
 
         return back()->withErrors([

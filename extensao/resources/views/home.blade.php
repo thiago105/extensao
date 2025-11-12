@@ -164,7 +164,10 @@
                                     <button type="submit" class="btn btn-danger fs-4">Sair</button>
                                 </form>
                             @else
-                                <a href="{{ route('login') }}" class="btn btn-primary fs-4">Login</a>
+                                <div class="d-flex gap-3">
+                                    <a href="{{ route('login.usuario') }}" class="btn btn-primary fs-4">Área do Usuário</a>
+                                    <a href="{{ route('login.instituicao') }}" class="btn btn-success fs-4">Área da Instituição</a>
+                                </div>
                             @endif
                         </li>
 

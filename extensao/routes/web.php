@@ -22,9 +22,15 @@ Route::get('/', function () {
 
 Route::view('/cadastro', 'cadastro.index')->name('cadastro.index');
 
-// Login geral
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
+// Login do usuário
+Route::get('/login/usuario', function () {
+    return view('auth.login', ['tipo' => 'usuario']);
+})->name('login.usuario');
+
+// Login da instituição
+Route::get('/login/instituicao', function () {
+    return view('auth.login', ['tipo' => 'instituicao']);
+})->name('login.instituicao');
 
 // Cadastro
 Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');

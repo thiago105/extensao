@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 600px;
             background: #fff;
             border-radius: 16px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
@@ -99,17 +99,6 @@
                 opacity: 1;
             }
         }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 25px;
-            }
-
-            .col-md-6 {
-                width: 100%;
-                margin-bottom: 30px;
-            }
-        }
     </style>
 </head>
 
@@ -120,56 +109,56 @@
             <img src="{{ asset('imgs/logo_menor.png') }}" alt="Logo Traços de Esperança">
         </div>
 
-        <h2>Login</h2>
+        @if ($tipo === 'usuario')
+            <h2>Login do Usuário</h2>
 
-        @if ($errors->has('login_error'))
-            <div class="alert alert-danger text-center mb-4" id="alert-error">
-                {{ $errors->first('login_error') }}
-            </div>
+            @if ($errors->has('login_error'))
+                <div class="alert alert-danger text-center mb-4" id="alert-error">
+                    {{ $errors->first('login_error') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <input type="hidden" name="tipo" value="usuario">
+                <div class="mb-3">
+                    <label for="email_user" class="form-label">Email</label>
+                    <input id="email_user" type="email" name="email" class="form-control" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password_user" class="form-label">Senha</label>
+                    <input id="password_user" type="password" name="password" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-2">Entrar como Usuário</button>
+            </form>
+
+        @elseif ($tipo === 'instituicao')
+            <h2>Login da Instituição</h2>
+
+            @if ($errors->has('login_error'))
+                <div class="alert alert-danger text-center mb-4" id="alert-error">
+                    {{ $errors->first('login_error') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('instituicao.login') }}">
+                @csrf
+                <input type="hidden" name="tipo" value="instituicao">
+                <div class="mb-3">
+                    <label for="email_instituicao" class="form-label">Email</label>
+                    <input id="email_instituicao" type="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password_instituicao" class="form-label">Senha</label>
+                    <input id="password_instituicao" type="password" name="password" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-2">Entrar como Instituição</button>
+            </form>
         @endif
-
-
-
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h4 class="text-primary text-center mb-3">Usuário</h4>
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label for="email_user" class="form-label">Email</label>
-                        <input id="email_user" type="email" name="email" class="form-control" required autofocus>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password_user" class="form-label">Senha</label>
-                        <input id="password_user" type="password" name="password" class="form-control" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary mt-2">Entrar como Usuário</button>
-                </form>
-            </div>
-
-            <div class="col-md-6">
-                <h4 class="text-success text-center mb-3">Instituição</h4>
-                <form method="POST" action="{{ route('instituicao.login') }}">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label for="email_instituicao" class="form-label">Email</label>
-                        <input id="email_instituicao" type="email" name="email" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password_instituicao" class="form-label">Senha</label>
-                        <input id="password_instituicao" type="password" name="password" class="form-control" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-success mt-2">Entrar como Instituição</button>
-                </form>
-            </div>
-        </div>
-
     </div>
 
 </body>
