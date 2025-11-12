@@ -54,7 +54,7 @@
             min-height: 90vh;
             transition: all 0.3s ease;
             overflow: hidden;
- 
+
         }
 
         #sidebar.collapsed {
@@ -132,20 +132,23 @@
                 width: 100%;
             }
         }
-
-       
     </style>
 </head>
 
 <body>
 
-    <header class="bg-dark text-white d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
+    <header class="bg-dark text-white d-flex justify-content-between align-items-center px-3">
+        <div class="d-flex align-items-center flex-grow-1">
             <button class="btn btn-dark" type="button" id="toggleSidebar" style="font-size: 1.5rem; line-height: 1;">
                 <i class="bi bi-list"></i>
             </button>
             <img src="{{ asset('imgs/logo_menor.png') }}" class="ms-3" style="height: 45px;">
         </div>
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="btn btn-danger ms-auto">Deslogar</button>
+        </form>
     </header>
 
     <div class="d-flex " style="min-height: 90vh;">
@@ -171,8 +174,8 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('areaDaInstituicao.pontoDeColeta.index') }}" class="nav-link">
-                    <i class="bi bi-geo"></i>
-                    <span class="sidebar-text">Gerenciar Pontos de Coleta</span>
+                        <i class="bi bi-geo"></i>
+                        <span class="sidebar-text">Gerenciar Pontos de Coleta</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -199,17 +202,17 @@
 
     <script>
         function setInitialSidebarState() {
-        const sidebar = document.getElementById('sidebar');
-        const contentWrapper = document.getElementById('content-wrapper');
-        
-       
-        if (window.innerWidth <= 768) {
-            sidebar.classList.add('collapsed');
-            contentWrapper.classList.add('expanded');
-        }
-    }
+            const sidebar = document.getElementById('sidebar');
+            const contentWrapper = document.getElementById('content-wrapper');
 
-    document.addEventListener('DOMContentLoaded', setInitialSidebarState);
+
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+                contentWrapper.classList.add('expanded');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', setInitialSidebarState);
 
         document.getElementById('toggleSidebar').addEventListener('click', () => {
             document.getElementById('sidebar').classList.toggle('collapsed');
