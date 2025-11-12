@@ -69,6 +69,10 @@
         a.text-secondary:hover {
             text-decoration: underline;
         }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
 
         @keyframes fadeInUp {
             0% {
@@ -86,7 +90,7 @@
 
 <body>
     <div class="container mt-5 mb-5">
-        <h2>Cadastro de Instituição</h2>
+        <h2 class="text-success">Cadastro de Instituição</h2>
 
         <form action="{{ route('instituicao.store') }}" method="POST">
             @csrf
@@ -118,12 +122,12 @@
                 <input type="password" name="password" class="form-control" placeholder="Crie uma senha" required>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100 mt-3">
+            <button type="submit" class="btn btn-success w-100 mt-3">
                 Cadastrar Instituição
             </button>
         </form>
 
-        <a href="{{ route('login.usuario') }}" class="btn btn-secondary w-100 mt-3 text-white text-decoration-none">
+        <a href="{{ route('login.instituicao') }}" class="btn btn-secondary w-100 mt-3 text-white text-decoration-none">
             Logar-se
         </a>
     </div>

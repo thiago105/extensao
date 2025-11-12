@@ -8,10 +8,11 @@ class Authenticate extends Middleware
 {
     protected function redirectTo($request): ?string
     {
-        if (! $request->expectsJson()) {
-            return route('login');
+    if (! $request->expectsJson()) {
+        if ($request->is('area-da-instituicao/*')) {
+            return route('login.instituicao'); // tua rota de login de instituição
         }
-
-        return null;
+        return route('login.usuario'); // tua rota de login de usuário
     }
+}
 }
