@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Instituição - Traços de Esperança</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -18,14 +19,14 @@
             background: #fff;
             border-radius: 16px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            padding: 40px;
+            padding: 40px 30px;
             animation: fadeInUp 0.6s ease;
         }
 
         h2 {
             text-align: center;
             font-weight: 700;
-            color: #1a73e8;
+            color: #28a745;
             margin-bottom: 30px;
         }
 
@@ -44,34 +45,26 @@
 
         .form-control:focus,
         .form-select:focus {
-            border-color: #1a73e8;
-            box-shadow: 0 0 6px rgba(26, 115, 232, 0.3);
+            border-color: #28a745;
+            box-shadow: 0 0 6px rgba(40, 167, 69, 0.3);
         }
 
-        .btn-primary {
-            background-color: #1a73e8;
+        .btn-success {
+            background-color: #28a745;
             border: none;
             border-radius: 10px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background-color: #0d63d2;
+        .btn-success:hover {
+            background-color: #218838;
             transform: scale(1.02);
         }
 
-        a.text-secondary {
-            color: #1a73e8 !important;
+        .btn-secondary {
+            border-radius: 10px;
             font-weight: 500;
-        }
-
-        a.text-secondary:hover {
-            text-decoration: underline;
-        }
-        .btn-success {
-            background-color: #28a745;
-            border: none;
         }
 
         @keyframes fadeInUp {
@@ -90,47 +83,56 @@
 
 <body>
     <div class="container mt-5 mb-5">
-        <h2 class="text-success">Cadastro de Instituição</h2>
+        <h2>Cadastro de Instituição</h2>
 
-        <form action="{{ route('instituicao.store') }}" method="POST">
+        <form action="{{ route('instituicao.store') }}" method="POST" class="needs-validation" novalidate>
             @csrf
 
-            <div class="mb-3">
-                <label class="form-label">Nome da Instituição</label>
-                <input type="text" name="name" class="form-control" placeholder="Digite o nome" required>
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label">Nome da Instituição</label>
+                    <input type="text" name="name" class="form-control" placeholder="Digite o nome" maxlength="100" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">CNPJ</label>
+                    <input type="text" name="cnpj" id="cnpj" class="form-control" placeholder="00.000.000/0000-00" maxlength="18" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="exemplo@instituicao.com" maxlength="100" required>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Endereço</label>
+                    <input type="text" name="endereco" class="form-control" placeholder="Rua, número, bairro, cidade..." maxlength="150" required>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Senha</label>
+                    <input type="password" name="password" class="form-control" placeholder="Crie uma senha" minlength="6" maxlength="20" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">CNPJ</label>
-                <input type="text" name="cnpj" class="form-control" placeholder="Apenas números" maxlength="14"
-                    required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Endereço</label>
-                <input type="text" name="endereco" class="form-control" placeholder="Rua, número, bairro, cidade..."
-                    required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="exemplo@instituicao.com" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Senha</label>
-                <input type="password" name="password" class="form-control" placeholder="Crie uma senha" required>
-            </div>
-
-            <button type="submit" class="btn btn-success w-100 mt-3">
+            <button type="submit" class="btn btn-success w-100 mt-4">
                 Cadastrar Instituição
             </button>
-        </form>
 
-        <a href="{{ route('login.instituicao') }}" class="btn btn-secondary w-100 mt-3 text-white text-decoration-none">
-            Logar-se
-        </a>
+            <a href="{{ route('login.instituicao') }}" class="btn btn-secondary w-100 mt-3 text-white text-decoration-none">
+                Logar-se
+            </a>
+        </form>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/imask"></script>
+
+    <script>
+        IMask(document.getElementById('cnpj'), {
+            mask: '00000000000000'
+        });
+    </script>
 </body>
 
 </html>
