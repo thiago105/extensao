@@ -155,13 +155,10 @@
                             <a class="nav-link" href="#comoDoar">Como</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#parceiros">Parceiros</a>
-                        </li>
-                        <li class="nav-item">
-                                <div class="d-flex gap-3">
-                                    <a href="{{ route('login.usuario') }}" class="btn btn-outline-primary fs-4">Área do Usuário</a>
-                                    <a href="{{ route('login.instituicao') }}" class="btn btn-outline-secondary fs-4">Área da Instituição</a>
-                                </div>
+                            <div class="d-flex gap-3">
+                                <a href="{{ route('login.usuario') }}" class="btn btn-outline-primary fs-4">Área do Usuário</a>
+                                <a href="{{ route('login.instituicao') }}" class="btn btn-outline-secondary fs-4">Área da Instituição</a>
+                            </div>
                         </li>
 
                     </ul>
@@ -186,31 +183,9 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="card p-4">
                             <div class="card-body">
-                                <form method="POST">
-                                    <h4 class="card-title text-center mb-4">AGENDE SUA COLETA</h4>
 
-                                    <div class="d-flex align-items-center mb-3">
-                                        <label for="nome" class="form-label me-3 text-uppercase fw-bold">NOME</label>
-                                        <input type="text" id="nome" name="nome" class="form-control" required>
-                                    </div>
-
-                                    <div class="d-flex align-items-center mb-3">
-                                        <label for="telefone"
-                                            class="form-label me-3 text-uppercase fw-bold">TELEFONE</label>
-                                        <input type="text" id="telefone" name="telefone" class="form-control" required>
-                                    </div>
-
-                                    <div class="d-flex align-items-center mb-4">
-                                        <label for="email" class="form-label me-3 text-uppercase fw-bold">EMAIL</label>
-                                        <input type="email" id="email" name="email" class="form-control" required>
-                                    </div>
-
-                                    <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-success custom-btn-agendar py-2">
-                                            <h4 class="m-0">AGENDAR</h4>
-                                        </button>
-                                    </div>
-                                </form>
+                                <h4 class="card-title text-center mb-4">Encontre Pontos de coleta</h4>
+                                <p>Sua doação faz a diferença! Encontre um local perto de você para deixar sua contribuição e nos ajudar a montar os kits escolares.</p>
                             </div>
                         </div>
                     </div>
@@ -436,16 +411,6 @@
                         </div>
                     </section>
 
-                    <section class="page-section" id="parceiros">
-                        <div class="col-12 text-center titulos">
-                            <h1>NOSSOS PARCEIROS</h1>
-                            <hr class="w-25 mx-auto">
-                        </div>
-
-                        <div class="div">
-                        </div>
-                    </section>
-
 
                 </div>
 
@@ -468,7 +433,7 @@
 
 
 
-        </script>
+    </script>
     <script>
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -509,7 +474,7 @@
         });
 
         navLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
+            link.addEventListener('click', function(e) {
                 if (this.getAttribute('href').startsWith('#')) {
                     e.preventDefault();
 
