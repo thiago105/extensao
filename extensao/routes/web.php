@@ -77,6 +77,16 @@ Route::delete('/pedido/{id}', [PedidoDeDoacaoController::class, 'destroy'])->nam
 // ==========================
 Route::middleware('auth:instituicao')->group(function () {
 
+    Route::get('/home', [App\Http\Controllers\AreaDaIntituicaoController::class, 'index'])->name('index');
+
+    Route::get('/pedidos-de-doacao', [App\Http\Controllers\AreaDaIntituicaoController::class, 'pedidosDeDoacao'])->name('pedidosDeDoacao');
+    Route::get('/pedido-de-doacao/{id}', [App\Http\Controllers\PedidoDeDoacaoController::class, 'show'])->name('pedidoDeDoacao.show');
+    Route::patch('/pedido-de-doacao/{id}/concluir', [App\Http\Controllers\PedidoDeDoacaoController::class, 'concluir'])->name('pedidoDeDoacao.concluir');
+    Route::delete('/pedido-de-doacao/{id}', [App\Http\Controllers\PedidoDeDoacaoController::class, 'destroy'])->name('pedidoDeDoacao.destroy');
+    Route::patch('/pedido-de-doacao/{id}/reabrir', [App\Http\Controllers\PedidoDeDoacaoController::class, 'reabrir'])->name('pedidoDeDoacao.reabrir');
+    Route::get('/area-da-instituicao/pedidos-de-doacao', [PedidoDeDoacaoController::class, 'indexInstituicao'])
+    ->name('areaDaInstituicao.pedidosDeDoacao');
+
     //areaDaInstituicao
     Route::get('/area-da-instituicao', [AreaDaIntituicaoController::class, 'index'])->name('areaDaInstituicao.index');
     Route::get('/area-da-instituicao/estoque', [AreaDaIntituicaoController::class, 'estoque'])->name('areaDaInstituicao.estoque');
