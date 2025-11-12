@@ -60,11 +60,17 @@ Route::middleware(['auth.ambos'])->group(function () {
     Route::get('/area-do-usuario/solicitar-doacao', [AreaDoUsuarioController::class, 'solicitarDoacao'])->name('areaDoUsuario.solicitarDoacao');
     Route::get('/area-do-usuario/ponto-de-coleta', [AreaDoUsuarioController::class, 'pontoDeColeta'])->name('areaDoUsuario.pontoDeColeta');
     Route::get('/area-do-usuario/dashboard', [AreaDoUsuarioController::class, 'dashboard'])->name('areaDoUsuario.dashboard');
-    Route::get('/area-do-usuario/pedidos', [AreaDoUsuarioController::class, 'pedidos'])->name('areaDoUsuario.pedidos');
+    Route::get('/area-do-usuario/pedidos', [PedidoDeDoacaoController::class, 'meusPedidos'])->name('areaDoUsuario.pedidos');
     Route::get('/area-do-usuario/perfilUsuario', [AreaDoUsuarioController::class, 'perfilUsuario'])->name('areaDoUsuario.perfilUsuario');
 
     Route::get('/area-do-usuario/ponto-de-coleta', [PontoColetaUsuarioController::class, 'index'])
         ->name('areaDoUsuario.pontoDeColeta');
+    Route::get('/area-do-usuario/ponto-de-coleta', [PontoColetaUsuarioController::class, 'index'])->name('areaDoUsuario.pontoDeColeta');
+
+    //gerenciar pedidos usuario
+    Route::get('/meus-pedidos', [PedidoDeDoacaoController::class, 'meusPedidos'])->name('areaDoUsuario.meusPedidos');
+    Route::delete('/meus-pedidos/{id}', [PedidoDeDoacaoController::class, 'cancelarPedidoUsuario'])->name('areaDoUsuario.cancelarPedido');
+    Route::get('/pedidos/{id}', [PedidoDeDoacaoController::class, 'show'])->name('pedido.show');
 });
 
 Route::get('/pedido', [PedidoDeDoacaoController::class, 'index'])->name('areaDoUsuario.solicitarDoacao');
@@ -88,8 +94,7 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::patch('/pedido-de-doacao/{id}/concluir', [App\Http\Controllers\PedidoDeDoacaoController::class, 'concluir'])->name('pedidoDeDoacao.concluir');
     Route::delete('/pedido-de-doacao/{id}', [App\Http\Controllers\PedidoDeDoacaoController::class, 'destroy'])->name('pedidoDeDoacao.destroy');
     Route::patch('/pedido-de-doacao/{id}/reabrir', [App\Http\Controllers\PedidoDeDoacaoController::class, 'reabrir'])->name('pedidoDeDoacao.reabrir');
-    Route::get('/area-da-instituicao/pedidos-de-doacao', [PedidoDeDoacaoController::class, 'indexInstituicao'])
-        ->name('areaDaInstituicao.pedidosDeDoacao');
+    Route::get('/area-da-instituicao/pedidos-de-doacao', [PedidoDeDoacaoController::class, 'indexInstituicao'])->name('areaDaInstituicao.pedidosDeDoacao');
 
     //areaDaInstituicao
     Route::get('/area-da-instituicao', [AreaDaIntituicaoController::class, 'index'])->name('areaDaInstituicao.index');
@@ -100,7 +105,7 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::get('/area-da-instituicao/perfil', [AreaDaIntituicaoController::class, 'perfilInstituicao'])->name('areaDaInstituicao.perfilInstituicao');
     Route::get('/area-da-instituicao/material', [AreaDaIntituicaoController::class, 'material'])->name('areaDaInstituicao.material');
 
-
+    //intituicao
     Route::get('/instituicao', [InstituicaoController::class, 'index'])->name('instituicao.index');
     Route::get('/instituicao/{id}', [InstituicaoController::class, 'show'])->name('instituicao.show');
     Route::get('/instituicao/{id}/edit', [InstituicaoController::class, 'edit'])->name('instituicao.edit');
@@ -144,24 +149,12 @@ Route::middleware('auth:instituicao')->group(function () {
     Route::get('/ponto-de-coleta/{id}/edit', [Ponto_de_coletaController::class, 'edit'])->name('pontoDeColeta.edit');
     Route::put('/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'update'])->name('pontoDeColeta.update');
 
-    Route::get('/area-da-instituicao/ponto-de-coleta', [Ponto_de_coletaController::class, 'index'])
-        ->name('areaDaInstituicao.pontoDeColeta.index');
-
-    Route::get('/area-da-instituicao/ponto-de-coleta/novo', [Ponto_de_coletaController::class, 'create'])
-        ->name('areaDaInstituicao.pontoDeColeta.create');
-
-    Route::post('/area-da-instituicao/ponto-de-coleta', [Ponto_de_coletaController::class, 'store'])
-        ->name('areaDaInstituicao.pontoDeColeta.store');
-
-    Route::get('/area-da-instituicao/ponto-de-coleta/{id}/editar', [Ponto_de_coletaController::class, 'edit'])
-        ->name('areaDaInstituicao.pontoDeColeta.edit');
-
-    Route::put('/area-da-instituicao/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'update'])
-        ->name('areaDaInstituicao.pontoDeColeta.update');
-
-
-    Route::delete('/area-da-instituicao/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'destroy'])
-        ->name('areaDaInstituicao.pontoDeColeta.destroy');
+    Route::get('/area-da-instituicao/ponto-de-coleta', [Ponto_de_coletaController::class, 'index'])->name('areaDaInstituicao.pontoDeColeta.index');
+    Route::get('/area-da-instituicao/ponto-de-coleta/novo', [Ponto_de_coletaController::class, 'create'])->name('areaDaInstituicao.pontoDeColeta.create');
+    Route::post('/area-da-instituicao/ponto-de-coleta', [Ponto_de_coletaController::class, 'store'])->name('areaDaInstituicao.pontoDeColeta.store');
+    Route::get('/area-da-instituicao/ponto-de-coleta/{id}/editar', [Ponto_de_coletaController::class, 'edit'])->name('areaDaInstituicao.pontoDeColeta.edit');
+    Route::put('/area-da-instituicao/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'update'])->name('areaDaInstituicao.pontoDeColeta.update');
+    Route::delete('/area-da-instituicao/ponto-de-coleta/{id}', [Ponto_de_coletaController::class, 'destroy'])->name('areaDaInstituicao.pontoDeColeta.destroy');
 });
 
 

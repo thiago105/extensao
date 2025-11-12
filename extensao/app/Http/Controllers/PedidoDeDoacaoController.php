@@ -148,4 +148,22 @@ class PedidoDeDoacaoController extends Controller
         return redirect()->route('pedidosDeDoacao')
             ->with('success', 'Pedido e itens relacionados excluídos com sucesso.');
     }
+
+    public function meusPedidos()
+    {
+        $userId = Auth::id();
+
+        $pedidos = Pedido_de_doacao::with('itensDoPedido.material')
+            ->where('usuario_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->partition('concluido');
+
+
+
+        return view('areaDoUsuario.pedidos', [
+            'pedidosEmAberto' => $pedidos[1],
+            'pedidosConcluidos' => $pedidos[0]
+        ]);
+    }
 }

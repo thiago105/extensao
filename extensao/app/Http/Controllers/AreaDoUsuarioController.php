@@ -15,7 +15,7 @@ class AreaDoUsuarioController extends Controller
 {
     public function index()
     {
-        $usuarioId = Auth::id(); // Pega o ID do usuário logado
+        $usuarioId = Auth::id(); 
 
         // Total que o usuário já doou
         $doacoesIds = Doacao_recebida::where('usuario_id', $usuarioId)->pluck('id');
