@@ -110,6 +110,6 @@ class UsuarioController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
-        return redirect()->route('home')->with('success', 'Sua conta foi excluída com sucesso.');
+        return redirect()->route('/')->with('success', 'Sua conta foi excluída com sucesso.');
     }
 }
