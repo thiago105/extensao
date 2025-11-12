@@ -5,59 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\Material;
 use Illuminate\Http\Request;
 use App\Models\Pedido_de_doacao;
-// ADICIONE ESTES DOIS 'USE'
-use App\Models\Material_pedido_de_doacao; // O model para a tabela 'material-pedido-de-doacao'
-use Illuminate\Support\Facades\DB;       // Para usar transações
+use App\Models\Material_pedido_de_doacao;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class PedidoDeDoacaoController extends Controller
 {
-
     public function create()
     {
-        // Busca todos os materiais cadastrados
         $materiais = Material::all();
 
-        // Retorna para a view, com a variável $materiais disponível
         return view('areaDoUsuario.solicitarDoacao', compact('materiais'));
     }
 
-    /**
-     * MÉTODO STORE ATUALIZADO
-     */
     public function store(Request $request)
     {
-        // Validação atualizada para incluir os itens
         $validated = $request->validate([
             'observacao' => 'nullable|string|max:500',
-            'endereco'   => 'required|string|max:255',
-            'itens'      => 'required|array|min:1', // Pelo menos 1 item
+            'endereco' => 'required|string|max:255',
+            'itens' => 'required|array|min:1',
             'itens.*.material_id' => 'required|exists:material,id',
-            'itens.*.quantidade'  => 'required|integer|min:1',
+            'itens.*.quantidade' => 'required|integer|min:1',
         ]);
 
-        // Inicia uma transação: se algo falhar, nada é salvo.
         DB::beginTransaction();
 
         try {
-            // 1. Cria o pedido principal
             $pedido = Pedido_de_doacao::create([
                 'usuario_id' => Auth::id(),
                 'observacao' => $validated['observacao'] ?? '',
-                'endereco'   => $validated['endereco'],
-                'concluido'  => false,
+                'endereco' => $validated['endereco'],
+                'concluido' => false,
             ]);
 
-            // 2. Salva os itens do pedido
             foreach ($request->itens as $item) {
                 Material_pedido_de_doacao::create([
                     'pedido_de_doacao_id' => $pedido->id,
-                    'material_id'         => $item['material_id'],
-                    'quantidade'          => $item['quantidade'],
+                    'material_id' => $item['material_id'],
+                    'quantidade' => $item['quantidade'],
                 ]);
             }
-            
-            // 3. Sucesso! Salva tudo no banco.
+
             DB::commit();
 
             return redirect()
@@ -65,16 +53,15 @@ class PedidoDeDoacaoController extends Controller
                 ->with('success', 'Pedido de coleta registrado com sucesso!');
 
         } catch (\Exception $e) {
-            // 4. Falha! Desfaz todas as operações.
             DB::rollBack();
+
 
             return redirect()
                 ->route('areaDoUsuario.solicitarDoacao')
                 ->with('error', 'Houve um erro ao registrar seu pedido. Tente novamente.');
         }
     }
-
-    public function destroy($id)
+    public function cancelarPedidoUsuario($id)
     {
         $pedido = Pedido_de_doacao::findOrFail($id);
 
@@ -82,15 +69,85 @@ class PedidoDeDoacaoController extends Controller
             abort(403, 'Ação não autorizada.');
         }
 
-        // Antes de deletar o pedido, é uma boa prática
-        // deletar os itens associados a ele.
         Material_pedido_de_doacao::where('pedido_de_doacao_id', $id)->delete();
-
         $pedido->delete();
 
         return redirect()
-            // Corrigindo o nome da rota (estava com hífen)
-            ->route('areaDoUsuario.solicitarDoacao') 
+            ->route('areaDoUsuario.meusPedidos')
             ->with('success', 'Pedido de doação cancelado com sucesso.');
+    }
+    public function index()
+    {
+        $pedidos = Pedido_de_doacao::with('usuario')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->partition('concluido');
+
+        return view('pedidoDeDoacao.index', [
+            'pedidosPendentes' => $pedidos[0],
+            'pedidosConcluidos' => $pedidos[1]
+        ]);
+    }
+
+    public function show($id)
+    {
+        $pedido = Pedido_de_doacao::with(['usuario', 'itensDoPedido.material'])->findOrFail($id);
+        return view('pedidoDeDoacao.show', compact('pedido'));
+    }
+
+    public function concluir($id)
+    {
+        $pedido = Pedido_de_doacao::findOrFail($id);
+        $pedido->update(['concluido' => true]);
+
+        return redirect()
+            ->route('areaDaInstituicao.pedidosDeDoacao')
+            ->with('success', 'Pedido marcado como concluído!');
+    }
+
+    public function reabrir($id)
+    {
+        $pedido = Pedido_de_doacao::findOrFail($id);
+        $pedido->update(['concluido' => false]);
+
+        return redirect()
+            ->route('areaDaInstituicao.pedidosDeDoacao')
+            ->with('success', 'Pedido reaberto com sucesso!');
+    }
+
+    public function destroyInstituicao($id)
+    {
+        $pedido = Pedido_de_doacao::findOrFail($id);
+
+        DB::beginTransaction();
+        try {
+            Material_pedido_de_doacao::where('pedido_de_doacao_id', $id)->delete();
+
+            $pedido->delete();
+
+            DB::commit();
+
+            return redirect()
+                ->route('areaDaInstituicao.pedidosDeDoacao')
+                ->with('success', 'Pedido de doação excluído permanentemente.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('areaDaInstituicao.pedidosDeDoacao')
+                ->with('error', 'Erro ao excluir o pedido.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $pedido = Pedido_de_doacao::findOrFail($id);
+
+        $pedido->itensDoPedido()->delete();
+
+        $pedido->delete();
+
+        return redirect()->route('pedidosDeDoacao')
+            ->with('success', 'Pedido e itens relacionados excluídos com sucesso.');
     }
 }

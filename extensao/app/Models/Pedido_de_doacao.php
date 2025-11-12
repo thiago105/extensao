@@ -17,4 +17,15 @@ class Pedido_de_doacao extends Model
         'endereco',
         'concluido',
     ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'usuario_id');
+    }
+
+    public function itensDoPedido()
+    {
+        return $this->hasMany(Material_pedido_de_doacao::class, 'pedido_de_doacao_id');
+    }
 }
+

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estoque_instituicao;
+use App\Models\Pedido_de_doacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AreaDaIntituicaoController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view("areaDaInstituicao.index");
     }
 
@@ -23,28 +25,40 @@ class AreaDaIntituicaoController extends Controller
         return view('areaDaInstituicao.estoque', compact('estoques'));
     }
 
-    public function pedidosDeDoacao(){
-        return view("areaDaInstituicao.pedidosDeDoacao");
-    }    
+    public function pedidosDeDoacao()
+    {
+        $pedidosPendentes = Pedido_de_doacao::where('concluido', false)->get();
+        $pedidosConcluidos = Pedido_de_doacao::where('concluido', true)->get();
 
-    public function pontoDeColeta(){
+        $pedidosEmAndamento = collect();
+
+        return view('areaDaInstituicao.pedidosDeDoacao', compact(
+            'pedidosPendentes',
+            'pedidosEmAndamento',
+            'pedidosConcluidos'
+        ));
+    }
+
+    public function pontoDeColeta()
+    {
         return view("areaDaInstituicao.pontoDeColeta");
-    }  
-    
-    public function perfilInstituicao(){
+    }
+
+    public function perfilInstituicao()
+    {
         $instituicao = Auth::guard('instituicao')->user();
-        
+
         return view("areaDaInstituicao.perfilInstituicao", compact('instituicao'));
-    } 
+    }
 
     public function material()
-{
-    // busca os materiais cadastrados no banco
-    $materiais = \App\Models\Material::all();
+    {
+        // busca os materiais cadastrados no banco
+        $materiais = \App\Models\Material::all();
 
-    // retorna a view que lista/cadastra materiais
-    return view('areaDaInstituicao.material', compact('materiais'));
-}
+        // retorna a view que lista/cadastra materiais
+        return view('areaDaInstituicao.material', compact('materiais'));
+    }
 
 
     // public function perfil(){
