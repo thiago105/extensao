@@ -32,7 +32,12 @@ class Instituicao extends Authenticatable
         return $this->hasMany(Entrega::class);
     }
 
-    public function ponto_de_coleta()
+    public function pontosDeColeta()
+    {
+        return $this->hasMany(Ponto_de_coleta::class, 'id_instituicao', 'id');
+    }
+
+    public function ponto_de_coleta()   
     {
         return $this->hasMany(Ponto_de_coleta::class);
     }
