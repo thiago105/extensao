@@ -5,12 +5,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            {{-- Título da Página --}}
+
             <h1 class="h3 mb-3">Editar Material</h1>
         </div>
     </div>
 
-    {{-- Bloco para exibir erros de validação --}}
+
     @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Opa!</strong> Há algo errado:
@@ -24,7 +24,7 @@
     @endif
 
     <div class="row">
-        {{-- Limitando a largura do formulário --}}
+
         <div class="col-12 col-lg-8"> 
             
             <div class="card shadow-sm">
@@ -34,13 +34,13 @@
                 <div class="card-body">
                     <form action="{{ route('material.update', $material->id) }}" method="POST">
                         @csrf
-                        @method('PUT') {{-- Importante para atualização --}}
+                        @method('PUT') 
 
                         <div class="mb-3">
                             <label for="id" class="form-label">ID</label>
                             <input type="text" id="id" class="form-control" 
                                    value="{{ $material->id }}" disabled>
-                            {{-- O ID é mostrado mas não pode ser editado --}}
+
                         </div>
 
                         <div class="mb-3">

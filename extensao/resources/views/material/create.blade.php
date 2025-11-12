@@ -5,12 +5,11 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            {{-- Título da Página atualizado --}}
             <h1 class="h3 mb-3">Cadastrar Tipos de Material</h1>
         </div>
     </div>
 
-    {{-- Bloco para exibir erros de validação --}}
+
     @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Opa!</strong> Há algo errado:
@@ -23,10 +22,10 @@
     </div>
     @endif
 
-    {{-- Linha para o formulário e a lista --}}
+
     <div class="row">
         
-        {{-- Card do Formulário (esquerda) --}}
+
         <div class="col-12 col-lg-7 mb-4"> 
             <div class="card shadow-sm">
                 <div class="card-header">
@@ -37,10 +36,10 @@
                         @csrf
 
                         <label class="form-label">Nome do material</label>
-                        {{-- Wrapper para os campos dinâmicos --}}
+
                         <div id="campos-materiais-wrapper">
                             
-                            {{-- Campo inicial (não pode ser removido) --}}
+
                             <div class="input-group mb-3">
                                 <input type="text" name="name[]" class="form-control" 
                                        placeholder="Ex: Papelão" required>
@@ -48,7 +47,6 @@
 
                         </div>
 
-                        {{-- Botão para adicionar mais campos --}}
                         <button type="button" id="btn-adicionar-campo" class="btn btn-secondary btn-sm mb-4">
                             + Adicionar outro
                         </button>
@@ -57,16 +55,12 @@
                             <button type="submit" class="btn btn-primary">
                                 Salvar Materiais
                             </button>
-                            <a href="{{ route('areaDaInstituicao.material') }}" class="btn btn-light ms-2">
+                            <a href="{{ route('areaDaInstituicao.material') }}" class="btn btn-outline-secondary ms-2">
                                 Cancelar
                             </a>
                         </div>
                     </form>
 
-                    {{-- 
-                        Template do campo (para o JavaScript copiar) 
-                        Fica oculto
-                    --}}
                     <template id="template-campo-material">
                         <div class="input-group mb-3">
                             <input type="text" name="name[]" class="form-control" 
@@ -81,23 +75,20 @@
             </div>
         </div>
 
-        {{-- Card da Lista (direita) --}}
+
         <div class="col-12 col-lg-5">
             <div class="card shadow-sm">
                 <div class="card-header">
                     <h5 class="mb-0 card-title">Materiais Já Cadastrados</h5>
                 </div>
                 <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-                    {{-- 
-                        Este trecho lista os materiais que já existem.
-                        Seu Controller precisa passar a variável $materiais para esta view.
-                    --}}
+
                     @if(isset($materiais) && $materiais->count() > 0)
                         <ul class="list-group list-group-flush">
                             @foreach($materiais as $material)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     {{ $material->name }}
-                                    {{-- Adicione botões de editar/excluir aqui se desejar --}}
+
                                 </li>
                             @endforeach
                         </ul>

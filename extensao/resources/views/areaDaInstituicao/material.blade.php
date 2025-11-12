@@ -3,14 +3,13 @@
 @section('content')
 
 <div class="container-fluid">
-    {{-- Título da página atualizado --}}
+
     <div class="row">
         <div class="col-12">
             <h1 class="h3 mb-3">Tipos de Material Cadastrados</h1>
         </div>
     </div>
 
-    {{-- Alertas --}}
     @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
@@ -35,10 +34,7 @@
             <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 card-title">Lista de Materiais</h5>
-                    {{-- 
-                        Este botão leva para a tela de cadastro de material
-                        que criamos anteriormente (a com "adicionar +")
-                    --}}
+
                     <a href="{{ route('material.create') }}" class="btn btn-primary">
                         + Adicionar Novo Material
                     </a>
@@ -48,23 +44,20 @@
                         <table class="table align-middle mb-0">
                             <thead>
                                 <tr>
-                                    {{-- Colunas atualizadas para a tabela 'material' --}}
+
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th class="text-center" style="width: 180px;">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- 
-                                    Variável atualizada para '$materiais' 
-                                    (seu controller precisa enviar essa variável)
-                                --}}
+
                                 @forelse($materiais as $material)
                                 <tr>
                                     <td>{{ $material->id }}</td>
                                     <td>{{ $material->name }}</td>
                                     <td class="text-center">
-                                        {{-- Rotas atualizadas para 'material.edit' e 'material.destroy' --}}
+
                                         <a href="{{ route('material.edit', $material->id) }}" class="btn btn-primary btn-sm">
                                             Editar
                                         </a>
