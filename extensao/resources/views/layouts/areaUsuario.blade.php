@@ -142,7 +142,7 @@
             <button class="btn btn-dark" type="button" id="toggleSidebar" style="font-size: 1.5rem; line-height: 1;">
                 <i class="bi bi-list"></i>
             </button>
-            <img src="{{ asset('imgs/logo_menor.png') }}" class="ms-3" style="height: 45px;">
+            <a href="{{ route('home') }}"><img src="{{ asset('imgs/logo_menor.png') }}" class="ms-3" style="height: 45px;"></a>
         </div>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
