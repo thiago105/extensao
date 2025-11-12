@@ -51,7 +51,6 @@ class PedidoDeDoacaoController extends Controller
             return redirect()
                 ->route('areaDoUsuario.solicitarDoacao')
                 ->with('success', 'Pedido de coleta registrado com sucesso!');
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -83,9 +82,9 @@ class PedidoDeDoacaoController extends Controller
             ->get()
             ->partition('concluido');
 
-        return view('pedidoDeDoacao.index', [
-            'pedidosPendentes' => $pedidos[0],
-            'pedidosConcluidos' => $pedidos[1]
+        return view('areaDaInstituicao.pedidosDeDoacao', [
+            'pedidosPendentes' => $pedidos[1],
+            'pedidosConcluidos' => $pedidos[0]
         ]);
     }
 
@@ -130,7 +129,6 @@ class PedidoDeDoacaoController extends Controller
             return redirect()
                 ->route('areaDaInstituicao.pedidosDeDoacao')
                 ->with('success', 'Pedido de doação excluído permanentemente.');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()
