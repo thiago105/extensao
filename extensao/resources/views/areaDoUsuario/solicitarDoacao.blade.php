@@ -5,7 +5,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            {{-- Título atualizado para "Recebimento" --}}
             <h1 class="h3 mb-3">Solicitar Doação (Recebimento)</h1>
         </div>
     </div>
@@ -39,18 +38,14 @@
                 </div>
                 <div class="card-body">
 
-                    {{-- Texto de instrução atualizado --}}
                     <p class="card-text">Preencha seu endereço e informe os materiais que você precisa receber.</p>
 
-                    {{-- A rota 'pedido.store' vai receber todos esses dados --}}
                     <form action="{{ route('pedido.store') }}" method="POST">
                         @csrf
 
-                        {{-- Esta seção preenche a tabela 'pedido-de-doacao' --}}
                         <h5 class="mb-3">Seus Dados</h5>
                         <div class="row g-3">
                             <div class="col-md-12">
-                                {{-- Label atualizada --}}
                                 <label for="endereco" class="form-label">Endereço de Entrega</label>
                                 <input type="text" id="endereco" name="endereco"
                                     class="form-control @error('endereco') is-invalid @enderror"
@@ -71,7 +66,6 @@
                                 @error('observacao')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                {{-- Texto de ajuda adicionado conforme sua instrução --}}
                                 <div class="form-text">
                                     Use este campo para pedir itens que não estão na lista (ex: Roupas, Comida, Móveis).
                                 </div>
@@ -80,9 +74,7 @@
 
                         <hr class="my-4">
 
-                        {{-- Esta seção preenche a tabela 'material-pedido-de-doacao' --}}
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            {{-- Título atualizado --}}
                             <h5 class="mb-0">Itens da Lista (Materiais)</h5>
                             <button type="button" id="btn-adicionar-item" class="btn btn-sm btn-secondary">
                                 + Adicionar Item
@@ -108,7 +100,6 @@
                                         placeholder="Qtd." min="1" required>
                                 </div>
                                 <div class="col-2">
-                                    {{-- O primeiro item não pode ser removido --}}
                                 </div>
                             </div>
                         </div>
@@ -129,10 +120,6 @@
     </div>
 </div>
 
-{{--
-    Template para o JavaScript copiar.
-    O nome 'itens[__INDEX__][...]' é lido pelo Laravel como um array.
---}}
 <template id="template-item-doacao">
     <div class="row g-3 align-items-center mb-2 item-doacao-row">
         <div class="col-7">
@@ -158,31 +145,28 @@
 </template>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
+    const btnAdicionar = document.getElementById('btn-adicionar-item');
+    const wrapper = document.getElementById('itens-doacao-wrapper');
+    const template = document.getElementById('template-item-doacao');
+    let itemIndex = 1;
 
-        const btnAdicionar = document.getElementById('btn-adicionar-item');
-        const wrapper = document.getElementById('itens-doacao-wrapper');
-        const template = document.getElementById('template-item-doacao');
-        let itemIndex = 1; // Começa em 1 porque o item 0 já está na página
+    btnAdicionar.addEventListener('click', function() {
+        const clone = template.content.cloneNode(true);
+        const html = clone.firstElementChild.outerHTML.replace(/__INDEX__/g, itemIndex);
 
-        btnAdicionar.addEventListener('click', function() {
-            const novoItem = template.content.cloneNode(true);
-            const novoHtml = novoItem.innerHTML.replace(/__INDEX__/g, itemIndex);
+        const novoItem = document.createElement('div');
+        novoItem.innerHTML = html;
+        const itemRow = novoItem.firstElementChild;
 
-            const novoElemento = document.createElement('div');
-            novoElemento.innerHTML = novoHtml;
-
-            novoElemento.querySelector('.btn-remover-item').addEventListener('click', function(e) {
-                // Encontra o elemento pai (o 'div' com a classe 'row') e o remove
-                e.target.closest('.item-doacao-row').parentElement.remove();
-            });
-
-            // Adiciona o 'div' que contém o 'row'
-            wrapper.appendChild(novoElemento);
-
-            itemIndex++;
+        const btnRemover = itemRow.querySelector('.btn-remover-item');
+        btnRemover.addEventListener('click', function() {
+            itemRow.remove();
         });
+        wrapper.appendChild(itemRow);
 
+        itemIndex++;
     });
+});
 </script>
 @endsection
