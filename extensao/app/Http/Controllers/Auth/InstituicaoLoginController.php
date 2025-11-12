@@ -10,7 +10,8 @@ class InstituicaoLoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        $tipo = 'instituicao';
+        return view('auth.login', compact('tipo'));
     }
 
     public function login(Request $request)

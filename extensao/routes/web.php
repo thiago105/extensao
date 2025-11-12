@@ -39,7 +39,7 @@ Route::get('/instituicao/create', [InstituicaoController::class, 'create'])->nam
 Route::post('/instituicao', [InstituicaoController::class, 'store'])->name('instituicao.store');
 
 // Login instituição
-Route::get('/instituicao/login', [InstituicaoLoginController::class, 'showLoginForm'])->name('instituicao.login.form');
+Route::get('/instituicao/login', [InstituicaoLoginController::class, 'showLoginForm'])->name('login.instituicao');
 Route::post('/instituicao/login', [InstituicaoLoginController::class, 'login'])->name('instituicao.login');
 
 // Rotas para Usuarios
