@@ -132,6 +132,10 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary mt-2">Entrar como Usuário</button>
+
+                <a href="{{ route('usuarios.create') }}" class="btn btn-secondary mt-2">
+                    Cadastrar-se
+                </a>
             </form>
 
         @elseif ($tipo === 'instituicao')
@@ -157,6 +161,10 @@
                 </div>
 
                 <button type="submit" class="btn btn-success mt-2">Entrar como Instituição</button>
+
+                <a href="{{ route('instituicao.create') }}" class="btn btn-secondary mt-2">
+                    Cadastrar-se
+                </a>
             </form>
         @endif
     </div>

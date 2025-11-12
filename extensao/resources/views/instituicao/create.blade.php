@@ -98,12 +98,14 @@
 
             <div class="mb-3">
                 <label class="form-label">CNPJ</label>
-                <input type="text" name="cnpj" class="form-control" placeholder="Apenas números" maxlength="14" required>
+                <input type="text" name="cnpj" class="form-control" placeholder="Apenas números" maxlength="14"
+                    required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Endereço</label>
-                <input type="text" name="endereco" class="form-control" placeholder="Rua, número, bairro, cidade..." required>
+                <input type="text" name="endereco" class="form-control" placeholder="Rua, número, bairro, cidade..."
+                    required>
             </div>
 
             <div class="mb-3">
@@ -121,11 +123,9 @@
             </button>
         </form>
 
-        <div class="text-center mt-3">
-            <a href="{{ route('instituicao.index') }}" class="text-secondary text-decoration-none">
-                ← Voltar à lista
-            </a>
-        </div>
+        <a href="{{ route('login.usuario') }}" class="btn btn-secondary w-100 mt-3 text-white text-decoration-none">
+            Logar-se
+        </a>
     </div>
 </body>
 

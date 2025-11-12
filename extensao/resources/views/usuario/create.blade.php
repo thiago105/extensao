@@ -130,6 +130,12 @@
             <button type="submit" class="btn btn-primary w-100 mt-3">
                 Cadastrar Estudante
             </button>
+
+
+            <a href="{{ route('login.usuario') }}" class="btn btn-secondary w-100 mt-3 text-white text-decoration-none">
+                Logar-se
+            </a>
+
         </form>
     </div>
 </body>
