@@ -49,11 +49,21 @@
                         @endif
                     </div>
                     <div class="card-footer text-end">
-                        <form action="{{ route('areaDoUsuario.cancelarPedido', $pedido->id) }}" method="POST" 
-                              onsubmit="return confirm('Tem certeza que deseja cancelar este pedido? Esta ação não pode ser desfeita.');">
+                        
+                        <form id="form-cancelar-{{ $pedido->id }}" action="{{ route('areaDoUsuario.cancelarPedido', $pedido->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">
+
+                    
+                            <button type="button" 
+                                    class="btn btn-danger btn-sm"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#confirmationModal"
+                                    data-modal-title="Confirmar Cancelamento"
+                                    data-modal-body="Tem certeza que deseja cancelar este pedido? Esta ação não pode ser desfeita."
+                                    data-modal-button-text="Sim, cancelar pedido"
+                                    data-modal-button-class="btn-danger"
+                                    data-form-target="#form-cancelar-{{ $pedido->id }}">
                                 <i class="bi bi-trash"></i> Cancelar Pedido
                             </button>
                         </form>
@@ -93,5 +103,64 @@
         @endforelse
     </div>
 
+</div> 
+
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmar Ação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Você tem certeza que deseja realizar esta ação?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn" id="btn-confirm-modal-action">Confirmar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        const confirmationModal = document.getElementById('confirmationModal');
+        let formToSubmit = null; 
+
+        const confirmButton = document.getElementById('btn-confirm-modal-action');
+
+        confirmationModal.addEventListener('show.bs.modal', function (event) {
+            
+            const button = event.relatedTarget; 
+
+            const modalTitle = button.dataset.modalTitle;
+            const modalBody = button.dataset.modalBody;
+            const modalButtonText = button.dataset.modalButtonText;
+            const modalButtonClass = button.dataset.modalButtonClass;
+            
+            const formTargetSelector = button.dataset.formTarget;
+            formToSubmit = document.querySelector(formTargetSelector);
+
+            confirmationModal.querySelector('.modal-title').textContent = modalTitle;
+            confirmationModal.querySelector('.modal-body').textContent = modalBody;
+            
+            confirmButton.textContent = modalButtonText;
+            
+            confirmButton.className = 'btn'; 
+            confirmButton.classList.add(modalButtonClass); 
+        });
+
+        confirmButton.addEventListener('click', function () {
+            if (formToSubmit) {
+                formToSubmit.submit();
+            }
+        });
+
+    });
+</script>
+
 @endsection

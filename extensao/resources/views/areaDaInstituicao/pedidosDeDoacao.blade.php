@@ -89,7 +89,6 @@
         <h1 class="h3 mb-0 text-gray-800">Gerenciar Pedidos de Doação</h1>
     </div>
 
-    <!-- Seção de Pedidos Pendentes -->
     <div class="mb-4">
         <h2 class="h5 mb-3 text-gray-800">Pedidos Pendentes</h2>
         
@@ -103,7 +102,7 @@
                             </h5>
                             <p class="card-text mb-2">
                                 <i class="bi bi-person me-2"></i>
-                                <strong>Doador:</strong> {{ $pedido->usuario->nome ?? 'Usuário não encontrado' }}
+                                <strong>Nome:</strong> {{ $pedido->usuario->nome ?? 'Usuário não encontrado' }}
                             </p>
                             <p class="card-text mb-2">
                                 <i class="bi bi-geo-alt me-2"></i>
@@ -124,18 +123,38 @@
                                 <i class="bi bi-eye-fill"></i> Detalhes
                             </a>
                             
-                            <form action="{{ route('pedidoDeDoacao.concluir', $pedido->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja marcar este pedido como concluído?');">
+                            <form id="form-concluir-{{ $pedido->id }}" action="{{ route('pedidoDeDoacao.concluir', $pedido->id) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" class="btn btn-concluir-pedido btn-sm" title="Concluir">
+                                
+                                <button type="button" 
+                                        class="btn btn-concluir-pedido btn-sm" 
+                                        title="Concluir"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#confirmationModal"
+                                        data-modal-title="Confirmar Conclusão"
+                                        data-modal-body="Tem certeza que deseja marcar este pedido como concluído?"
+                                        data-modal-button-text="Sim, concluir pedido"
+                                        data-modal-button-class="btn-concluir-pedido"
+                                        data-form-target="#form-concluir-{{ $pedido->id }}">
                                     <i class="bi bi-check-circle-fill"></i> Concluir
                                 </button>
                             </form>
 
-                            <form action="{{ route('pedidoDeDoacao.destroy', $pedido->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este pedido?');">
+                            <form id="form-excluir-{{ $pedido->id }}" action="{{ route('pedidoDeDoacao.destroy', $pedido->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-excluir-pedido btn-sm" title="Excluir">
+                                
+                                <button type="button" 
+                                        class="btn btn-excluir-pedido btn-sm" 
+                                        title="Excluir"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#confirmationModal"
+                                        data-modal-title="Confirmar Exclusão"
+                                        data-modal-body="Tem certeza que deseja excluir este pedido? Esta ação não pode ser desfeita e todos os dados relacionados serão removidos."
+                                        data-modal-button-text="Sim, excluir este pedido"
+                                        data-modal-button-class="btn-excluir-pedido"
+                                        data-form-target="#form-excluir-{{ $pedido->id }}">
                                     <i class="bi bi-trash-fill"></i> Excluir
                                 </button>
                             </form>
@@ -152,7 +171,6 @@
         </div>
     </div>
 
-    <!-- Seção de Pedidos Concluídos -->
     <div class="mb-4">
         <h2 class="h5 mb-3 text-gray-800">Pedidos Concluídos</h2>
         
@@ -166,7 +184,7 @@
                             </h5>
                             <p class="card-text mb-2">
                                 <i class="bi bi-person me-2"></i>
-                                <strong>Doador:</strong> {{ $pedido->usuario->nome ?? 'Usuário não encontrado' }}
+                                <strong>Nome:</strong> {{ $pedido->usuario->nome ?? 'Usuário não encontrado' }}
                             </p>
                             <p class="card-text mb-2">
                                 <i class="bi bi-geo-alt me-2"></i>
@@ -182,10 +200,21 @@
                             </p>
                         </div>
                         <div class="card-footer bg-light border-0 action-buttons text-center pt-2">
-                            <form action="{{ route('pedidoDeDoacao.reabrir', $pedido->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja reabrir este pedido?');">
+                            
+                            <form id="form-reabrir-{{ $pedido->id }}" action="{{ route('pedidoDeDoacao.reabrir', $pedido->id) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" class="btn btn-reabrir-pedido btn-sm" title="Reabrir Pedido">
+                                
+                                <button type="button" 
+                                        class="btn btn-reabrir-pedido btn-sm" 
+                                        title="Reabrir Pedido"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#confirmationModal"
+                                        data-modal-title="Confirmar Reabertura"
+                                        data-modal-body="Tem certeza que deseja reabrir este pedido? Ele voltará para a lista de pendentes."
+                                        data-modal-button-text="Sim, reabrir pedido"
+                                        data-modal-button-class="btn-reabrir-pedido"
+                                        data-form-target="#form-reabrir-{{ $pedido->id }}">
                                     <i class="bi bi-arrow-clockwise"></i> Reabrir
                                 </button>
                             </form>
@@ -202,5 +231,63 @@
         </div>
     </div>
 
+</div> {{-- HTML DO MODAL DE CONFIRMAÇÃO --}}
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmar Ação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Você tem certeza que deseja realizar esta ação?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn" id="btn-confirm-modal-action">Confirmar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+{{-- JAVASCRIPT PARA CONTROLAR O MODAL --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        const confirmationModal = document.getElementById('confirmationModal');
+        let formToSubmit = null; 
+
+        const confirmButton = document.getElementById('btn-confirm-modal-action');
+
+        confirmationModal.addEventListener('show.bs.modal', function (event) {
+            
+            const button = event.relatedTarget; 
+
+            const modalTitle = button.dataset.modalTitle;
+            const modalBody = button.dataset.modalBody;
+            const modalButtonText = button.dataset.modalButtonText;
+            const modalButtonClass = button.dataset.modalButtonClass;
+            
+            const formTargetSelector = button.dataset.formTarget;
+            formToSubmit = document.querySelector(formTargetSelector);
+
+            confirmationModal.querySelector('.modal-title').textContent = modalTitle;
+            confirmationModal.querySelector('.modal-body').textContent = modalBody;
+            
+            confirmButton.textContent = modalButtonText;
+            
+            confirmButton.className = 'btn'; 
+            confirmButton.classList.add(modalButtonClass); 
+        });
+
+        confirmButton.addEventListener('click', function () {
+            if (formToSubmit) {
+                formToSubmit.submit();
+            }
+        });
+
+    });
+</script>
+
 @endsection
