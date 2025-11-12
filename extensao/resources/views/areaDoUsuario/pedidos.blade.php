@@ -31,7 +31,7 @@
                         <ul class="list-group list-group-flush">
                             @foreach ($pedido->itensDoPedido as $item)
                                 <li class="list-group-item">
-                                    {{ $item->material->nome }} ({{ $item->quantidade }})
+                                    {{ $item->material->name }} ({{ $item->quantidade }})
                                 </li>
                             @endforeach
                         </ul>
